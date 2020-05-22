@@ -8,5 +8,7 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = link_to "Home", root_path
-    = yield
+    nav.navbar.bg-light
+      .mx-auto= link_to "Stock_App", root_path
+    .container-fluid
+      = yield

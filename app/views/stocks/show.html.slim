@@ -1,2 +1,7 @@
-p= @stock.code
-p= @stock.name
+.row.m-4
+  .h4.col-1.text-center= @stock.code
+  .h4.col-10= @stock.name
+h1.display-1.m-4.text-center= @price.price
+
+p.text-right= "更新：#{@price.updated_at.in_time_zone("Tokyo")}"
+p.text-right= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"

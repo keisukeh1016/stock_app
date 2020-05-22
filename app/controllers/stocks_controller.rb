@@ -1,9 +1,10 @@
 class StocksController < ApplicationController
   def index
-    @stocks = Stock.all
+    @stocks = Stock.order(:code)
   end
 
   def show
-    @stock = Stock.find(params[:id])
+    @stock = Stock.find_by(code: params[:id])
+    @price = Price.find_by(code: params[:id])
   end
 end
