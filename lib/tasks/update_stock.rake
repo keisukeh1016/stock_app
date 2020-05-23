@@ -14,17 +14,19 @@ namespace :update_stock do
     end
   end
   
-  desc "ブルームバーグから終値取得"
+  desc "株価を更新する"
   task price: :environment do
-    Stock.all.each do |stock|
+    def price(stock)
       html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
-      price = Nokogiri::HTML(html).css("div.price").to_s.delete(",").match(/\d+\.\d*/).to_s.to_f
-  
-      price_obj = Price.find_by(code: stock.code) 
-      if price_obj
-        price_obj.update(price: price)
+      Nokogiri::HTML(html).css("div.price").to_s.delete(",").match(/\d+\.\d*/).to_s.to_f
+    end
+
+    Stock.all.each do |stock|
+      price = Price.find_by(code: stock.code) 
+      if price
+        price.update( price: price(stock) ) if Time.zone.now - price.updated_at > 21600
       else
-        Price.create(code: stock.code, price: price)
+        Price.create( code: stock.code, price: price(stock) )
       end
     end
   end 
