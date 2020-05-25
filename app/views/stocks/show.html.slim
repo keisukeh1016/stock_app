@@ -1,8 +1,12 @@
-- @price = "---" unless @price
+- @title = "#{@stock.code} #{@stock.name}"
 
-.h5= @stock.code
-.h2= @stock.name
-h1.display-1.m-4.text-center= @price.price
+.container
+  h1= @stock.name
+  p.h5
+    = @stock.code
+    | （東証１部）
+  .display-1.text-center
+    = price(@stock)
 
-p.text-right= "更新：#{@price.updated_at.in_time_zone("Tokyo")}"
-p.text-right= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"
+  p.text-right= date(@stock)
+  p.text-right= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"

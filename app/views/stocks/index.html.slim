@@ -1,10 +1,14 @@
 table.table.table-hover
   thead
     tr.text-center
-      th.w-25 コード
+      th コード
       th 銘柄
+      th 終値
+      th 更新
   tbody
     - @stocks.each do |stock|
       tr
         td.text-center= link_to stock.code, "/stocks/#{stock.code}"
         td= stock.name
+        td.text-center= price(stock)
+        td.text-center= date(stock)

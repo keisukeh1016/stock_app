@@ -5,6 +5,5 @@ class StocksController < ApplicationController
 
   def show
     @stock = Stock.find_by(code: params[:id])
-    @price = Price.find_by(code: params[:id])
   end
 end

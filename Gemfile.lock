@@ -152,6 +152,9 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.0)
+    roo (2.8.3)
+      nokogiri (~> 1)
+      rubyzip (>= 1.3.0, < 3.0.0)
     ruby-ole (1.2.12.2)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -227,9 +230,11 @@ DEPENDENCIES
   html2slim
   jbuilder (~> 2.7)
   listen (~> 3.2)
+  nokogiri
   pg
   puma (>= 4.3.5)
   rails (~> 6.0.3)
+  roo
   sass-rails (>= 6)
   selenium-webdriver
   slim-rails

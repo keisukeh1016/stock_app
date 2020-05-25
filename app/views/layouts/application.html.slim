@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    title
-      | StockApp
+    title= title
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -10,5 +9,5 @@ html
   body
     nav.navbar.bg-light
       .mx-auto= link_to "Stock_App", root_path
-    .container-fluid
+    .container
       = yield
