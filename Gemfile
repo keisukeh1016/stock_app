@@ -8,8 +8,13 @@ gem 'rails', '~> 6.0.3'
 gem 'pg'
 # Use Puma as the app server
 gem "puma", ">= 4.3.5"
+# Use Slim
+gem 'slim-rails'
+gem 'html2slim'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
+gem 'bootstrap'
+gem 'jquery-rails'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -26,6 +31,11 @@ gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+
+# Parse HTML
+gem 'nokogiri'
+# Read SpreadSheet
+gem 'roo'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,11 +61,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem 'slim-rails'
-gem 'html2slim'
-gem 'bootstrap'
-
-gem 'nokogiri'
-gem 'roo'
-gem 'spreadsheet'

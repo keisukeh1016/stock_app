@@ -4,11 +4,20 @@ table.table.table-hover
       th コード
       th 銘柄
       th 終値
+      th 前日比
       th 更新
   tbody
-    - @stocks.each do |stock|
+    - @stocks[0..29].each do |stock|
       tr
         td.text-center= link_to stock.code, "/stocks/#{stock.code}"
         td= stock.name
-        td.text-center= price(stock)
-        td.text-center= date(stock)
+        td.text-right= stock.today_price
+
+        - if stock.dod_change > 0 
+          td.text-right.text-success= "+#{change_abs(stock)}％"
+        - elsif stock.dod_change < 0 
+          td.text-right.text-danger= "-#{change_abs(stock)}％"
+        - else
+          td.text-right= "#{change_abs(stock)}％"
+
+        td.text-center= updated_at(stock)

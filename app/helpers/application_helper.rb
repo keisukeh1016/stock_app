@@ -1,28 +1,15 @@
 module ApplicationHelper
   def title
-    title = "Stock"
-    title = "#{@title} | #{title}" if @title
-    title
+    @title ? "#{@title} | Stock" : "Stock"
   end
 
-  def price(stock)
-    return if stock.price.nil?
-
-    if (stock.price.ceil - stock.price) == 0
-      stock.price.ceil
-    else
-      stock.price
-    end
+  def change_abs(stock)
+    sprintf("%.2f", stock.dod_change.round(2).abs)
   end
 
-  def date(stock)
+  def updated_at(stock)
     t = stock.updated_at.in_time_zone("Tokyo")
-    
-    if t.hour > 15
-      "#{t.month}/#{t.day} 15:00"
-    else
-      "#{t.month}/#{t.day - 1} 15:00"
-    end
+    t.hour > 15 ? "#{t.month}/#{t.day} 15:00" : "#{t.month}/#{t.day - 1} 15:00"
   end
 
 end

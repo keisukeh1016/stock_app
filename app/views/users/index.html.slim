@@ -1,0 +1,11 @@
+- @title = "ユーザー一覧"
+
+table.table.table-hover
+  thead
+    tr
+      th 名前
+  hbody
+    - @users.each do |user|
+      tr
+        td= link_to user.name, user
+        

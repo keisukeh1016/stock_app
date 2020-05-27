@@ -1,6 +1,6 @@
 class StocksController < ApplicationController
   def index
-    @stocks = Stock.order(:code)
+    @stocks = Stock.order(dod_change: :desc)
   end
 
   def show

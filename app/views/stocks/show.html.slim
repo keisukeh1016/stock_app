@@ -1,12 +1,12 @@
 - @title = "#{@stock.code} #{@stock.name}"
 
-.container
+.container.mt-3
   h1= @stock.name
-  p.h5
+  p.h5.ml-1
     = @stock.code
     | （東証１部）
   .display-1.text-center
-    = price(@stock)
+    = @stock.today_price
 
-  p.text-right= date(@stock)
-  p.text-right= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"
+  p.text-right= updated_at(@stock)
+  p.text-right= link_to "みんなの株式", "https://minkabu.jp/stock/#{@stock.code}/"

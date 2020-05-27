@@ -1,13 +1,17 @@
 doctype html
-html
+html lang="ja"
   head
-    title= title
+    meta charset="utf-8"
+    meta name="viewport" content="widht=device-width initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    title= title
   body
-    nav.navbar.bg-light
-      .mx-auto= link_to "Stock_App", root_path
-    .container
+    nav.navbar.navbar-expand.navbar-light.bg-light.py-3
+      ul.navbar-nav
+        li.nav-item.mr-3= link_to "Home", root_path
+        li.nav-item= link_to "Users", users_path
+    .container.p-0
       = yield
