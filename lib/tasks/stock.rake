@@ -1,6 +1,6 @@
 require 'open-uri'
 
-namespace :stock do   
+namespace :stock do
   desc "銘柄コードを追加する"
   task code: :environment do
     sheet = Roo::Spreadsheet.open(Rails.root.to_s + '/app/assets/spreadsheets/TOPIX_weight_jp.xlsx')
@@ -12,7 +12,7 @@ namespace :stock do
   desc "銘柄名を更新する"
   task name: :environment do
     Stock.all.each do |stock|
-      stock.update(name: name(stock))
+      stock.update(name: stock_name(stock))
     end
   end
 
@@ -42,7 +42,7 @@ JPX_HOLIDAY = { 1  => [1, 2, 3, 13],
                 11 => [3, 23],
                 12 => [31]          }
 
-def name(stock)
+def stock_name(stock)
   html = URI.open("https://minkabu.jp/stock/#{stock.code}/daily_bar")
   Nokogiri::HTML(html).css("p.md_stockBoard_stockName").to_s.match(/>(.*)</)[1]
 end
