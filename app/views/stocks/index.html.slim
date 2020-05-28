@@ -6,7 +6,7 @@ table.table.table-hover
       th 終値
       th 前日比
   tbody
-    - @stocks[0..29].each do |stock|
+    - @stocks.each do |stock|
       tr
         td.text-center= link_to stock.code, "/stocks/#{stock.code}"
         td= stock.name.length > 20 ? "#{stock.name[0..19]}…" : stock.name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_162916) do
+ActiveRecord::Schema.define(version: 2020_05_28_193240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_05_27_162916) do
     t.float "yesterday_price", default: 1.0, null: false
     t.float "dod_change", default: 0.0, null: false
     t.index ["code"], name: "index_stocks_on_code", unique: true
+    t.index ["dod_change"], name: "index_stocks_on_dod_change"
   end
 
   create_table "users", force: :cascade do |t|

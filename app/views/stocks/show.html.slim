@@ -8,5 +8,5 @@
   .display-1.text-center
     = @stock.today_price
 
-  p.text-right= updated_at(@stock)
+  p.text-right= date_in_tokyo(@stock.updated_at)
   p.text-right= link_to "みんなの株式", "https://minkabu.jp/stock/#{@stock.code}/"

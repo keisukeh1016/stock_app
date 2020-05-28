@@ -1,6 +1,6 @@
 class StocksController < ApplicationController
   def index
-    @stocks = Stock.order(dod_change: :desc)
+    @stocks = Stock.order(dod_change: :desc).limit(20)
   end
 
   def show
