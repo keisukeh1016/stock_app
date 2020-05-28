@@ -9,9 +9,10 @@ html lang="ja"
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     title= title
   body
-    nav.navbar.navbar-expand.navbar-light.bg-light.py-3
-      ul.navbar-nav
-        li.nav-item.mr-3= link_to "Home", root_path
+    nav.navbar.bg-light.d-flex.justify-content-between
+      ul.nav
+        li.mr-3.nav-item= link_to "Home", root_path
         li.nav-item= link_to "Users", users_path
+      = updated_at(@last_updated_stock)
     .container.p-0
       = yield

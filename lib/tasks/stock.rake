@@ -18,19 +18,17 @@ namespace :stock do
 
   desc "株価を更新する"
   task price: :environment do
-    break if jpx_holiday?(Time.zone.now.in_time_zone("Tokyo")) 
+    break if jpx_holiday?(Time.zone.now.in_time_zone("Tokyo"))
     Stock.all.each do |stock|
-      stock.update(yesterday_price: yesterday_price(stock))
-      stock.update(today_price: today_price(stock))
-      
+      stock.update(today_price: today_price(stock), yesterday_price: yesterday_price(stock), dod_change: 0.01)
       dod_change = (stock.today_price - stock.yesterday_price) / stock.yesterday_price * 100
-      stock.update(dod_change: 0)
-      stock.update(dod_change: dod_change) 
+      stock.update(dod_change: dod_change)
     end
   end 
 
 end
 
+# https://www.jpx.co.jp/corporate/about-jpx/calendar/index.html
 JPX_HOLIDAY = { 1  => [1, 2, 3, 13],
                 2  => [11, 23, 24],
                 3  => [20],

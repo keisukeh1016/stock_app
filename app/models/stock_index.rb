@@ -1,0 +1,2 @@
+class StockIndex < ApplicationRecord
+end
