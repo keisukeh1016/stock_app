@@ -1,6 +1,4 @@
 class StocksController < ApplicationController
-  before_action :last_updated_stock
-
   def index
     @stocks = Stock.order(dod_change: :desc)
   end

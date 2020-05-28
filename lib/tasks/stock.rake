@@ -19,7 +19,7 @@ namespace :stock do
   desc "株価を更新する"
   task price: :environment do
     break if jpx_holiday?(Time.zone.now.in_time_zone("Tokyo"))
-    Stock.all.each do |stock|
+    Stock.order(:updated_at).each do |stock|
       stock.update(today_price: today_price(stock), yesterday_price: yesterday_price(stock), dod_change: 0.01)
       dod_change = (stock.today_price - stock.yesterday_price) / stock.yesterday_price * 100
       stock.update(dod_change: dod_change)
