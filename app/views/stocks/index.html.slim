@@ -1,6 +1,6 @@
-table.table.table-hover
+table
   thead
-    tr.text-center
+    tr
       th コード
       th 銘柄
       th 終値
@@ -8,13 +8,13 @@ table.table.table-hover
   tbody
     - @stocks.each do |stock|
       tr
-        td.text-center= link_to stock.code, "/stocks/#{stock.code}"
+        td= link_to stock.code, "/stocks/#{stock.code}"
         td= stock.name.length > 20 ? "#{stock.name[0..19]}…" : stock.name
-        td.text-right= stock.today_price
+        td= stock.today_price
 
         - if stock.dod_change > 0
-          td.text-right.text-success= "+#{change_abs(stock)}％"
+          td= "+#{change_abs(stock)}％"
         - elsif stock.dod_change < 0
-          td.text-right.text-danger= "-#{change_abs(stock)}％"
+          td= "-#{change_abs(stock)}％"
         - else
-          td.text-right= "#{change_abs(stock)}％"
+          td= "#{change_abs(stock)}％"
