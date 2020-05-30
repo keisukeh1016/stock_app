@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_action :first_stock
+  before_action :top_stock
 
-  def first_stock
-    @first_stock = Stock.first 
+  def top_stock
+    @top_stock = Stock.order(:dod_change).last
   end
 end

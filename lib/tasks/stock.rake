@@ -5,7 +5,7 @@ namespace :stock do
   task code: :environment do
     sheet = Roo::Spreadsheet.open(Rails.root.to_s + '/app/assets/spreadsheets/TOPIX_weight_jp.xlsx')
     sheet.each do |row|
-      Stock.create(code: row[2]) if /\A\d{4}\Z/ === row[2].to_s && Stock.find_by(code: row[2]) == nil
+      Stock.create(code: row[2]) if row[5] == "TOPIX Core30" || row[5] == "TOPIX Large70"
     end
   end
 
@@ -16,18 +16,19 @@ namespace :stock do
     end
   end
   
-  desc "株価をリセットする"
-  task reset_price: :environment do
-    break if jpx_holiday?(Time.zone.now.in_time_zone("Tokyo"))
-    Stock.all.each do |stock|
-      stock.update(today_price: 0.1, yesterday_price: 0.1, dod_change: 0)
-    end
-  end
-
   desc "株価を更新する"
-  task update_price: :environment do
-    break if jpx_holiday?(Time.zone.now.in_time_zone("Tokyo"))
-    Stock.where(today_price: 0.1).each do |stock|
+  task price: :environment do
+    break if jpx_holiday?(Time.zone.now)
+    Stock.all.each do |stock|
+      price = [today_price(stock), yesterday_price(stock)]
+      dod_change = (price[0] - price[1]) / price[1] * 100
+      stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
+    end
+  end 
+
+  desc "株価を更新する(いずれ消す)"
+  task price_a: :environment do
+    Stock.all.each do |stock|
       price = [today_price(stock), yesterday_price(stock)]
       dod_change = (price[0] - price[1]) / price[1] * 100
       stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
@@ -45,24 +46,24 @@ JPX_HOLIDAY = { 1  => [1, 2, 3, 13],
                 8  => [10],
                 9  => [21, 22],
                 11 => [3, 23],
-                12 => [31]          }
+                12 => [31] }
 
 def stock_name(stock)
-  html = URI.open("https://minkabu.jp/stock/#{stock.code}/daily_bar")
-  Nokogiri::HTML(html).css("p.md_stockBoard_stockName").to_s.match(/>(.*)</)[1]
+  html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
+  Nokogiri::HTML(html).css("h1.name").to_s.match(/>\s(.*)\s</)[1]
 end
 
 def today_price(stock)
-  html = URI.open("https://minkabu.jp/stock/#{stock.code}/daily_bar")
-  price = Nokogiri::HTML(html).css("div.stock_price").to_s.delete(",").match(/>\n\s*(\d*\.)<.*>(\d)/)
-  (price[1] + price[2]).to_f
+  html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
+  Nokogiri::HTML(html).css(".price").to_s.match(/>(.*)</)[1].delete(",").to_f
 end
 
 def yesterday_price(stock)
-  html = URI.open("https://minkabu.jp/stock/#{stock.code}/daily_bar")
-  Nokogiri::HTML(html).css("#fourvalue_timeline tr:nth-child(2)>td:nth-child(5)").to_s.match(/>(.*)</)[1].delete(",").to_f
+  html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
+  Nokogiri::HTML(html).css(".data-table_detailed>div:nth-child(4)>div:nth-child(2)").to_s.match(/>\s(.*)\s</)[1].delete(",").to_f
 end
 
-def jpx_holiday?(today)
-  today.on_weekend? == true || JPX_HOLIDAY[today.month].include?(today.day) == true
+def jpx_holiday?(date)
+  t = date.in_time_zone("Tokyo")
+  t.on_weekend? || JPX_HOLIDAY[t.month].include?(t.day)
 end

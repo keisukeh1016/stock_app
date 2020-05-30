@@ -8,13 +8,13 @@ table
   tbody
     - @stocks.each do |stock|
       tr
-        td= link_to stock.code, "/stocks/#{stock.code}"
-        td= stock.name.length > 20 ? "#{stock.name[0..19]}…" : stock.name
-        td= stock.today_price
+        td.stock_code= link_to stock.code, "/stocks/#{stock.code}"
+        td.stock_name= stock.name
+        td.stock_price= stock.today_price
 
         - if stock.dod_change > 0
-          td= "+#{change_abs(stock)}％"
+          td.stock_change.plus= "+#{change_abs(stock)}％"
         - elsif stock.dod_change < 0
-          td= "-#{change_abs(stock)}％"
+          td.stock_change.minus= "-#{change_abs(stock)}％"
         - else
-          td= "#{change_abs(stock)}％"
+          td.stock_change= "#{change_abs(stock)}％"

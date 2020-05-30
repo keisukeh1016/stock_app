@@ -1,10 +1,16 @@
 - @title = "#{@stock.code} #{@stock.name}"
 
-h1= @stock.name
-p
-  = @stock.code
-  | （東証１部）
-  = @stock.today_price
+section.stock_show
+  div.stock_head
+    p.stock_code= @stock.code
+    h1.stock_name= @stock.name
+  div.stock_main
+    p.stock_price= @stock.today_price
+    - if @stock.dod_change > 0
+      p.stock_change.plus= "+#{change_abs(@stock)}％"
+    - elsif @stock.dod_change < 0
+      p.stock_change.minus= "-#{change_abs(@stock)}％"
+    - else
+      p.stock_change= "#{change_abs(stock)}％"
 
-p= date_in_tokyo(@stock.updated_at)
-p= link_to "みんなの株式", "https://minkabu.jp/stock/#{@stock.code}/"
+  p.provider= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"
