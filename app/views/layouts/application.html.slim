@@ -9,10 +9,11 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    nav
-      ul
-        li= link_to "Home", root_path
-        li= link_to "User", users_path
+    header
+      nav
+        ul
+          li= link_to "Home", root_path
+          li= link_to "User", users_path
       div= updated(@top_stock.updated_at)
-    .container
+    main
       = yield

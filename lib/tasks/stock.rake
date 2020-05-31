@@ -26,7 +26,7 @@ namespace :stock do
     end
   end 
 
-  desc "株価を更新する(いずれ消す)"
+  desc "株価を更新する（手動用）"
   task price_a: :environment do
     Stock.all.each do |stock|
       price = [today_price(stock), yesterday_price(stock)]
@@ -49,8 +49,8 @@ JPX_HOLIDAY = { 1  => [1, 2, 3, 13],
                 12 => [31] }
 
 def stock_name(stock)
-  html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
-  Nokogiri::HTML(html).css("h1.name").to_s.match(/>\s(.*)\s</)[1]
+  html = URI.open("https://minkabu.jp/stock/#{stock.code}")
+  Nokogiri::HTML(html).css(".md_stockBoard_stockName").to_s.match(/>(.*)</)[1]
 end
 
 def today_price(stock)

@@ -1,6 +1,9 @@
 class Stock < ApplicationRecord
-  validates :code, :name, :today_price, :yesterday_price, :dod_change, presence: true
-  validates :code, :today_price, :yesterday_price, :dod_change, numericality: true
-  
-  validates :code, length: { is: 4 }, uniqueness: true
+  self.primary_key = :code
+
+  validates :code, presence: true
+  validates :code, uniqueness: true
+  validates :code, length: { is: 4 }
+
+  validates :dod_change, presence: true
 end
