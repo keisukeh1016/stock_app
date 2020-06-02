@@ -20,11 +20,16 @@ document.addEventListener('turbolinks:load', () => {
   const header = document.querySelector("header");
   const menuBar = document.querySelector("#menu_bar");
   const menuList = document.querySelector("#menu_list");
-  
+  const menuListAll = document.querySelectorAll("#menu_list>ul>li");
+
   function menuToggle() {
     header.classList.toggle("open");
     menuList.classList.toggle("open");
   };
   
   menuBar.addEventListener("click", menuToggle);
+  for(let i = 0; i < 4; i++) {
+    menuListAll[i].addEventListener("click", menuToggle);
+  }
+
 });

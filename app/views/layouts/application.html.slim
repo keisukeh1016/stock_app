@@ -10,5 +10,9 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
     = render "layouts/header"
+    - if flash[:notice]
+      #flash_messages.flash_notice= flash[:notice]
+    - if flash[:alert]
+      #flash_messages.flash_alert= flash[:alert]
     main
       = yield

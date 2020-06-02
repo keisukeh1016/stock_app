@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
-  helper_method :top_stock, :current_user
+  helper_method :first_stock, :current_user
 
   private
-    def top_stock
-      @top_stock = Stock.order(:dod_change).last
+    def first_stock
+      @firts_stock = Stock.first
     end
 
     def current_user

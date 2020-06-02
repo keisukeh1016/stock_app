@@ -19,10 +19,17 @@ namespace :stock do
   desc "株価を更新する"
   task price: :environment do
     break if jpx_holiday?(Time.zone.now)
+
     Stock.all.each do |stock|
       price = [today_price(stock), yesterday_price(stock)]
       dod_change = (price[0] - price[1]) / price[1] * 100
       stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
+    end
+
+    User.all.each do |user|
+      arr = user.stocks.pluck(:dod_change)
+      average = arr.empty? ? 0 : arr.sum / arr.length
+      user.update(portfolio_average: average)
     end
   end 
 
@@ -32,6 +39,12 @@ namespace :stock do
       price = [today_price(stock), yesterday_price(stock)]
       dod_change = (price[0] - price[1]) / price[1] * 100
       stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
+    end
+    
+    User.all.each do |user|
+      arr = user.stocks.pluck(:dod_change)
+      average = arr.empty? ? 0 : arr.sum / arr.length
+      user.update(portfolio_average: average)
     end
   end 
 end
@@ -52,17 +65,20 @@ JPX_HOLIDAY = { 1  => [1, 2, 3, 13],
 
 def stock_name(stock)
   html = URI.open("https://minkabu.jp/stock/#{stock.code}")
-  Nokogiri::HTML(html).css(".md_stockBoard_stockName").to_s.match(/>(.*)</)[1]
+  data = Nokogiri::HTML(html).css(".md_stockBoard_stockName").to_s.match(/>(.*)</)
+  data ? data[1] : nil
 end
 
 def today_price(stock)
   html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
-  Nokogiri::HTML(html).css(".price").to_s.match(/>(.*)</)[1].delete(",").to_f
+  data = Nokogiri::HTML(html).css(".price").to_s.match(/>(.*)</)
+  data ? data[1].delete(",").to_f : 1
 end
 
 def yesterday_price(stock)
   html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
-  Nokogiri::HTML(html).css(".data-table_detailed>div:nth-child(4)>div:nth-child(2)").to_s.match(/>\s(.*)\s</)[1].delete(",").to_f
+  data = Nokogiri::HTML(html).css(".data-table_detailed>div:nth-child(4)>div:nth-child(2)").to_s.match(/>\s(.*)\s</)
+  data ? data[1].delete(",").to_f : 1
 end
 
 def jpx_holiday?(date)

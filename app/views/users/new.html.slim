@@ -1,3 +1,10 @@
+- @title = "新規登録"
+
+- if @user.errors.present?
+  ul#error_messages 
+    - @user.errors.full_messages.each do |error|
+      li= error
+
 section.form_container
   h1 新規登録
   = form_with model: @user, local: true do |f|

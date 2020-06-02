@@ -1,14 +1,14 @@
-- @title = "ユーザー"
+- @title = "ユーザーランキング"
 
 table
   caption ユーザーランキング
   thead
     tr
-      th 順位
+      th
       th 名前
       th 保有銘柄
       th 平均
-  hbody
+  tbody
     - @users.each_with_index do |user, index|
       tr
         td.user_rank= index + 1

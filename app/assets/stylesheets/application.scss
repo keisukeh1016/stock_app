@@ -2,7 +2,7 @@ html {
   font-size: 10px;
   body {
     font-size: 2rem;
-    margin: 0;
+    margin: 0 0 2rem 0;
     a {
       color: blue;
       text-decoration: none;
@@ -66,6 +66,28 @@ header {
     flex: none;
     margin-right: 2rem;
   }
+}
+
+#flash_messages{
+  background: lightgray;
+  border-radius: 2rem;
+  height: 4rem;
+  line-height: 4rem;
+  margin: 1rem auto 0;
+  opacity: 0.4;
+  text-align: center;
+  width: 320px;
+}
+
+#error_messages {
+  border-radius: 2rem;
+  color: red;
+  list-style: none;
+  margin: 1rem auto 0;
+  opacity: 0.6;
+  padding: 0;
+  text-align: center;
+  width: 320px;
 }
 
 table {
@@ -144,7 +166,7 @@ section.form_container {
   }
   input.form_input {
     height: 2.4rem;
-    width: 100%;
+    width: 95%;
   }
   input.form_button {
     display: block;
@@ -194,6 +216,20 @@ section.stock_show {
   }
 }
 
+div.user_destroy {
+  background: red;
+  border-radius: 2rem;
+  height: 5rem;
+  line-height: 5rem;
+  margin: 2rem auto;
+  opacity: 0.8;
+  text-align: center;
+  width: 200px;
+  >a {
+    color: lightgray;
+  }
+}
+
 @media (max-width: 640px) {
   header {
     &.open {
@@ -235,21 +271,25 @@ section.stock_show {
         left: 0;
         margin: 0;
         padding: 0;
-        text-align: center;
-        top: 7rem;
         position: absolute;
+        text-align: center;
         width: 100%;
         li {
+          border-bottom: 0.1rem solid olive;
           height: 6rem;
           line-height: 6rem;
           margin: 0;
           a {
             color: white;
+            display: block;
           }
         }
       }
+      ul:nth-child(1) {
+        top: 7rem;
+      }
       ul:nth-child(2) {
-        top: 9.5em;
+        top: 9.6em;
       }
     }
   }

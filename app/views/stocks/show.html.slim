@@ -8,5 +8,5 @@ section.stock_show
   p.stock_price= @stock.today_price
   p= render "layouts/dod_change", dod_change: @stock.dod_change
 
-  p.stock_updated_at= updated_at(@stock)
+  p.stock_updated_at= updated_at(@stock.updated_at)
   p.provider= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"
