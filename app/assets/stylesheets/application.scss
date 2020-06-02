@@ -10,23 +10,60 @@ html {
   }
 }
 
+.plus_price {
+  color: seagreen;            
+}
+.minus_price {
+  color: salmon;
+}
+span.portfolio_button input {
+  border: solid;
+  border-radius: 1rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  height: 4rem;
+  opacity: 0.8;
+  padding: 0.4rem;
+  width: 5rem;
+  &.add_button {
+    background: royalblue;
+  }
+  &.delete_button {
+    background: orangered;
+  }
+}
+
 header {
   align-items: center;
   background: lightgray;
   display: flex;
+  height: 7rem;
   justify-content: space-between;
   opacity: 0.4;
-  nav {
+  user-select: none;
+  div#menu_bar {
+    display: none;
+  }
+  nav#menu_list {
+    display: flex;
+    flex: auto;
+    justify-content: space-between;
     ul {
       display: flex;
       padding-left: 2rem;
       li {
         list-style: none;
-        margin-right: 2rem;
+        margin-right: 1.6rem;
+        &.user_name>a {
+          font-weight: bold;
+        }
       }
     }
   }
-  div {
+  span {
+    display: inline-block;
+    flex: none;
     margin-right: 2rem;
   }
 }
@@ -34,6 +71,11 @@ header {
 table {
   margin: auto;
   min-width: 320px;
+  caption {
+    font-size: 3rem;
+    margin: 2rem auto;
+    text-align: center;
+  }
   thead {
     tr {
       th {
@@ -49,27 +91,68 @@ table {
         border-bottom: 0.1rem solid lightgray;
         height: 4rem;
         padding: 0.8rem;
+        text-align: right;
         &.stock_code {
           text-align: center;
         }
-        &.stock_name {
+        &.user_name {
           font-size: 1.6rem;
         }
-        &.stock_price {
-          text-align: right;
+        &.stock_name {
+          font-size: 1.6rem;
+          text-align: left;
         }
-        &.stock_change {
-          text-align: right;
-          &.plus {
-            color: seagreen;            
-          }
-          &.minus {
-            color: salmon;
-          }
+        &.user_name {
+          text-align: center;
         }
       }
     }
   }
+}
+
+td.user_portfolio {
+  font-size: 1.4rem;
+  padding: 0 0.8rem;
+  div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    span.stock_name {
+      opacity: 0.5;
+      text-align: left;
+      >a {
+        color: black;
+      }
+    }
+    span.stock_change {
+      font-size: 1.6rem;
+      opacity: 0.8;
+      text-align: right;
+    }
+  }
+}
+
+section.form_container {
+  margin: auto;
+  text-align: center;
+  width: 320px;
+  label.form_label {
+    display: block;
+    margin-bottom: 0.4rem;
+    text-align: left  
+  }
+  input.form_input {
+    height: 2.4rem;
+    width: 100%;
+  }
+  input.form_button {
+    display: block;
+    height: 4rem;
+    margin: 2rem auto;
+    width: 8rem;
+  }
+  
 }
 
 section.stock_show {
@@ -77,39 +160,97 @@ section.stock_show {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   margin: auto;
+  text-align: center;
   width: 320px;
-  p.stock_code {
-    text-align: center;
-  }
   h1.stock_name {
     font-size: 2rem;
-    grid-column-start: 2;
-    grid-column-end: 4;
+    grid-column: 2 / 4;
     margin-left: 1rem;
+    text-align: left;
   }
   p.stock_price {
     font-size: 5rem;
-    grid-column-start: 2;
-    grid-column-end: 3;
+    grid-column: 2 / 3;
     margin: 2rem 0;
-    text-align: center;
   }
-  p.stock_change {
-    margin: 3rem 0 0 0;
-    text-align: center;
-    &.plus {
-      color: seagreen;            
-    }
-    &.minus {
-      color: salmon;
-    }
+  div span.portfolio_button {
+    display: inline-block;
+    margin: 1.2rem 0 0 0;
+  }
+  p span.stock_change {
+    display: inline-block;
+    margin: 2.4rem 0 0 0;
+  }
+  p.stock_updated_at {
+    font-size: 1.6rem;
+    grid-column: 2 / 3;
+    opacity: 0.8;
   }
   p.provider {
     font-size: 1.6rem;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    margin-top: 5rem;
+    grid-column: 2 / 3;
+    margin-top: 1rem;
     opacity: 0.4;
-    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  header {
+    &.open {
+      margin-bottom: 24rem;
+    }
+    div#menu_bar {
+      cursor: pointer;
+      display: block;
+      height: 2.4rem;
+      margin-left: 2rem;
+      position: relative;
+      width: 3rem;
+      div {
+        background: blue;
+        display: block;
+        height: 0.4rem;
+        left: 0;
+        position: absolute;
+        width: 3rem;
+      }
+      div:nth-child(1) {
+        top: 0;
+      }
+      div:nth-child(2) {
+        top: 1rem;
+      }
+      div:nth-child(3) {
+        top: 2rem;
+      }
+    }
+    nav#menu_list {
+      display: none;
+    }
+    nav#menu_list.open {
+      display: block;
+      ul {
+        background: black;
+        display: block;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        top: 7rem;
+        position: absolute;
+        width: 100%;
+        li {
+          height: 6rem;
+          line-height: 6rem;
+          margin: 0;
+          a {
+            color: white;
+          }
+        }
+      }
+      ul:nth-child(2) {
+        top: 9.5em;
+      }
+    }
   }
 }

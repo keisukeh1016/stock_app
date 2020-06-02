@@ -1,4 +1,5 @@
 table
+  caption 銘柄一覧
   thead
     tr
       th コード
@@ -8,13 +9,11 @@ table
   tbody
     - @stocks.each do |stock|
       tr
-        td.stock_code= link_to stock.code, stock
-        td.stock_name= stock.name
-        td.stock_price= stock.today_price
+        td.stock_code
+          = stock.code
+          - if current_user
+            = render "layouts/portfolio_button", stock: stock
 
-        - if stock.dod_change > 0
-          td.stock_change.plus= "+#{change_abs(stock)}％"
-        - elsif stock.dod_change < 0
-          td.stock_change.minus= "-#{change_abs(stock)}％"
-        - else
-          td.stock_change= "#{change_abs(stock)}％"
+        td.stock_name= link_to stock.name, stock
+        td.stock_price= stock.today_price
+        td= render "layouts/dod_change", dod_change: stock.dod_change

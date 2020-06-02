@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_31_085643) do
+ActiveRecord::Schema.define(version: 2020_06_02_022217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "portfolios", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "stock_id", null: false
+    t.integer "stock_code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_code"], name: "index_portfolios_on_stock_code"
+    t.index ["user_id", "stock_code"], name: "index_portfolios_on_user_id_and_stock_code", unique: true
+    t.index ["user_id"], name: "index_portfolios_on_user_id"
   end
 
   create_table "stock_indexes", force: :cascade do |t|
@@ -47,6 +50,8 @@ ActiveRecord::Schema.define(version: 2020_05_31_085643) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "portfolio_average", default: 0.0
+    t.index ["portfolio_average"], name: "index_users_on_portfolio_average"
   end
 
 end

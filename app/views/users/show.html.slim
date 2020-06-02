@@ -1,2 +1,21 @@
 - @title = @user.name
 
+table
+  caption= "#{@user.name}のポートフォリオ"
+  thead
+    tr
+      th コード
+      th 銘柄
+      th 終値
+      th 前日比
+  tbody
+    - @stocks.each do |stock|
+      tr
+        td.stock_code
+          = stock.code
+          - if @user == current_user
+            = render "layouts/portfolio_button", stock: stock
+
+        td.stock_name= link_to stock.name, stock
+        td.stock_price= stock.today_price
+        td= render "layouts/dod_change", dod_change: stock.dod_change

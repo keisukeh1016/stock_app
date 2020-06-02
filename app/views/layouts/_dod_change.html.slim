@@ -1,0 +1,6 @@
+- if dod_change > 0
+  span.stock_change.plus_price= "+#{change_abs(dod_change)}％"
+- elsif dod_change < 0
+  span.stock_change.minus_price= "-#{change_abs(dod_change)}％"
+- else
+  span.stock_change= "#{change_abs(dod_change)}％"

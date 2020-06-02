@@ -27,7 +27,7 @@ namespace :stock do
   end 
 
   desc "株価を更新する（手動用）"
-  task price_a: :environment do
+  task price_man: :environment do
     Stock.all.each do |stock|
       price = [today_price(stock), yesterday_price(stock)]
       dod_change = (price[0] - price[1]) / price[1] * 100
@@ -42,9 +42,11 @@ JPX_HOLIDAY = { 1  => [1, 2, 3, 13],
                 3  => [20],
                 4  => [29],
                 5  => [3, 4, 5, 6],
+                6  => [],
                 7  => [23, 24],
                 8  => [10],
                 9  => [21, 22],
+                10 => [],
                 11 => [3, 23],
                 12 => [31] }
 

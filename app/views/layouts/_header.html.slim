@@ -1,0 +1,17 @@
+header
+  div#menu_bar 
+    div
+    div
+    div
+  nav#menu_list
+    ul
+      li= link_to "ユーザーランキング", root_path
+      li= link_to "銘柄一覧", stocks_path
+    ul
+      - if current_user
+        li.user_name= link_to current_user.name, current_user
+        li= link_to "ログアウト", logout_path, method: :delete
+      - else
+        li= link_to "新規登録", new_user_path
+        li= link_to "ログイン", login_path
+  span= updated_at(top_stock)

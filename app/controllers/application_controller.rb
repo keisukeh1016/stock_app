@@ -1,7 +1,12 @@
 class ApplicationController < ActionController::Base
-  before_action :top_stock
+  helper_method :top_stock, :current_user
 
-  def top_stock
-    @top_stock = Stock.order(:dod_change).last
-  end
+  private
+    def top_stock
+      @top_stock = Stock.order(:dod_change).last
+    end
+
+    def current_user
+      @current_user ||= User.find_by(id: session[:user_id])
+    end
 end

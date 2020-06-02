@@ -15,3 +15,16 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+document.addEventListener('turbolinks:load', () => {
+  const header = document.querySelector("header");
+  const menuBar = document.querySelector("#menu_bar");
+  const menuList = document.querySelector("#menu_list");
+  
+  function menuToggle() {
+    header.classList.toggle("open");
+    menuList.classList.toggle("open");
+  };
+  
+  menuBar.addEventListener("click", menuToggle);
+});

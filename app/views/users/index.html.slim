@@ -1,11 +1,23 @@
-- @title = "ユーザー一覧"
+- @title = "ユーザー"
 
 table
+  caption ユーザーランキング
   thead
     tr
+      th 順位
       th 名前
+      th 保有銘柄
+      th 平均
   hbody
-    - @users.each do |user|
+    - @users.each_with_index do |user, index|
       tr
-        td= link_to user.name, user
-        
+        td.user_rank= index + 1
+        td.user_name= link_to user.name, user
+
+        td.user_portfolio
+          - user.stocks.order(dod_change: :desc).each do |stock|
+            div
+              span.stock_name= link_to stock.name, stock
+              = render "layouts/dod_change", dod_change: stock.dod_change
+
+        td= render "layouts/dod_change", dod_change: user.portfolio_average
