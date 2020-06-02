@@ -1,12 +1,17 @@
 class PortfoliosController < ApplicationController
   def create
-    portfolio = current_user.portfolios.create(portfolio_params)
-    update_average(current_user)
-    redirect_to user_url(current_user), notice: "銘柄を追加しました"
+    portfolio = current_user.portfolios.build(portfolio_params)
+
+    if portfolio.save
+      update_average(current_user)
+      redirect_to user_url(current_user), notice: "銘柄を追加しました"
+    else
+      redirect_to user_url(current_user), notice: "銘柄登録の上限は５件です"
+    end
   end
 
   def destroy
-    portfolio = current_user.portfolios.find_by(portfolio_params).destroy
+    current_user.portfolios.find_by(portfolio_params).destroy
     update_average(current_user)
     redirect_to user_url(current_user), notice: "銘柄を削除しました"
   end
