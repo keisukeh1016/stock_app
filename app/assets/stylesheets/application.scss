@@ -77,6 +77,12 @@ header {
   opacity: 0.4;
   text-align: center;
   width: 320px;
+  &.flash_notice {
+    
+  }
+  &.flash_alert {
+    background: red;
+  }
 }
 
 #error_messages {

@@ -1,24 +1,26 @@
-# README
+[https://stock-ja.herokuapp.com/](https://stock-ja.herokuapp.com/)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 銘柄ポートフォリオを作成
 
-Things you may want to cover:
+1. ユーザー登録
 
-* Ruby version
+2. 銘柄登録
 
-* System dependencies
+3. 他のユーザーとランキングで競争
 
-* Configuration
+株価は平日１６時頃更新されます。
 
-* Database creation
+## 環境
 
-* Database initialization
+* Heroku Postgres
 
-* How to run the test suite
+* Ruby 2.7.1
 
-* Services (job queues, cache servers, search engines, etc.)
+* Rails 6.0.3
 
-* Deployment instructions
-
-* ...
+* RubyGems
+  - pg 
+  - slim
+  - nokogiri
+  - roo
+  - faker

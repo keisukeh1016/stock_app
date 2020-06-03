@@ -6,14 +6,14 @@ class PortfoliosController < ApplicationController
       update_average(current_user)
       redirect_to user_url(current_user), notice: "銘柄を追加しました"
     else
-      redirect_to user_url(current_user), notice: "銘柄登録の上限は５件です"
+      redirect_to user_url(current_user), alert: "銘柄登録の上限は５件です"
     end
   end
 
   def destroy
     current_user.portfolios.find_by(portfolio_params).destroy
     update_average(current_user)
-    redirect_to user_url(current_user), notice: "銘柄を削除しました"
+    redirect_to user_url(current_user), alert: "銘柄を削除しました"
   end
 
   private

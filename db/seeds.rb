@@ -7,15 +7,9 @@ end
 # ユーザーとポートフォリオを追加
 Faker::Config.locale = 'ja'
 arr = Stock.pluck(:code).shuffle
+
 50.times do
   user = User.create(name: Faker::Name.unique.first_name)
   arr.shuffle!
   5.times { |n| user.portfolios.create(stock_code: arr[n]) }
-end
-
-# ポートフォリオの平均を計算
-User.all.each do |user|
-  arr = user.stocks.pluck(:dod_change)
-  average = arr.empty? ? 0 : arr.sum / arr.length
-  user.update(portfolio_average: average)
 end

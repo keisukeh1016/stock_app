@@ -1,14 +1,6 @@
 require 'open-uri'
 
 namespace :stock do
-  desc "銘柄コードを追加する"
-  task code: :environment do
-    sheet = Roo::Spreadsheet.open(Rails.root.to_s + '/app/assets/spreadsheets/TOPIX_weight_jp.xlsx')
-    sheet.each do |row|
-      Stock.create(code: row[2]) if row[5] == "TOPIX Core30" || row[5] == "TOPIX Large70"
-    end
-  end
-
   desc "銘柄名を更新する"
   task name: :environment do
     Stock.all.each do |stock|
@@ -18,50 +10,22 @@ namespace :stock do
   
   desc "株価を更新する"
   task price: :environment do
-    break if jpx_holiday?(Time.zone.now)
-
-    Stock.all.each do |stock|
-      price = [today_price(stock), yesterday_price(stock)]
-      dod_change = (price[0] - price[1]) / price[1] * 100
-      stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
-    end
-
-    User.all.each do |user|
-      arr = user.stocks.pluck(:dod_change)
-      average = arr.empty? ? 0 : arr.sum / arr.length
-      user.update(portfolio_average: average)
-    end
+    break if jpx_holiday?
+    update_stocks_price
+    update_users_average
   end 
 
   desc "株価を更新する（手動用）"
   task price_man: :environment do
-    Stock.all.each do |stock|
-      price = [today_price(stock), yesterday_price(stock)]
-      dod_change = (price[0] - price[1]) / price[1] * 100
-      stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
-    end
-    
-    User.all.each do |user|
-      arr = user.stocks.pluck(:dod_change)
-      average = arr.empty? ? 0 : arr.sum / arr.length
-      user.update(portfolio_average: average)
-    end
+    update_stocks_price    
+    update_users_average
   end 
 end
 
 # https://www.jpx.co.jp/corporate/about-jpx/calendar/index.html
-JPX_HOLIDAY = { 1  => [1, 2, 3, 13],
-                2  => [11, 23, 24],
-                3  => [20],
-                4  => [29],
-                5  => [3, 4, 5, 6],
-                6  => [],
-                7  => [23, 24],
-                8  => [10],
-                9  => [21, 22],
-                10 => [],
-                11 => [3, 23],
-                12 => [31] }
+JPX_HOLIDAY = { 1  => [1, 2, 3, 13], 2 => [11, 23, 24], 3 => [20],     4 => [29],
+                5  => [3, 4, 5, 6],  6 => [],           7 => [23, 24], 8 => [10],
+                9  => [21, 22],     10 => [],          11 => [3, 23], 12 => [31] }
 
 def stock_name(stock)
   html = URI.open("https://minkabu.jp/stock/#{stock.code}")
@@ -81,7 +45,23 @@ def yesterday_price(stock)
   data ? data[1].delete(",").to_f : 1
 end
 
-def jpx_holiday?(date)
-  t = date.in_time_zone("Tokyo")
+def jpx_holiday?
+  t = Time.zone.now.in_time_zone("Tokyo")
   t.on_weekend? || JPX_HOLIDAY[t.month].include?(t.day)
+end
+
+def update_stocks_price
+  Stock.all.each do |stock|
+    price = [today_price(stock), yesterday_price(stock)]
+    dod_change = (price[0] - price[1]) / price[1] * 100
+    stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
+  end
+end
+
+def update_users_average
+  User.all.each do |user|
+    arr = user.stocks.pluck(:dod_change)
+    average = arr.empty? ? 0 : arr.sum / arr.length
+    user.update(portfolio_average: average)
+  end
 end
