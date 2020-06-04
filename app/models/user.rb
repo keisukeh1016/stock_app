@@ -4,5 +4,5 @@ class User < ApplicationRecord
 
   validates :name, presence: true,
                    uniqueness: true,
-                   length: { maximum: 6 }
+                   length: { maximum: 8 }
 end

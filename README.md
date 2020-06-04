@@ -1,4 +1,4 @@
-[https://stock-ja.herokuapp.com/](https://stock-ja.herokuapp.com/)
+https://stock-ja.herokuapp.com/
 
 # 銘柄ポートフォリオを作成
 
@@ -6,7 +6,7 @@
 
 2. 銘柄登録
 
-3. 他のユーザーとランキングで競争
+3. その日のポートフォリをの上昇率を確認
 
 株価は平日１６時頃更新されます。
 
@@ -19,8 +19,7 @@
 * Rails 6.0.3
 
 * RubyGems
-  - pg 
-  - slim
+  - slim-rails
   - nokogiri
   - roo
   - faker
