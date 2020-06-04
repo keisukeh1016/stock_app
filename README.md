@@ -18,6 +18,8 @@ https://stock-ja.herokuapp.com/
 
 * Rails 6.0.3
 
+* RSpec
+
 * RubyGems
   - slim-rails
   - nokogiri

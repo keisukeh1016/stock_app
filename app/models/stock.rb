@@ -1,5 +1,6 @@
 class Stock < ApplicationRecord
   self.primary_key = :code
+  
   has_many :portfolios, foreign_key: "stock_code",
                         dependent: :destroy
   has_many :users, through: :portfolios
