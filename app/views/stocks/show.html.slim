@@ -1,12 +1,13 @@
 - @page_title = "#{@stock.code} #{@stock.name}"
 
 section.stock_show
-  p.stock_code= @stock.code
+  span.stock_code= @stock.code
   h1.stock_name= @stock.name
 
-  div= render "layouts/portfolio_button", stock: @stock
-  p.stock_price= @stock.today_price
-  p= render "layouts/dod_change", dod_change: @stock.dod_change
+  = render "layouts/portfolio_button", stock: @stock
+  span.stock_price= @stock.today_price
+  .stock_change= render "layouts/dod_change", dod_change: @stock.dod_change
 
   p.stock_updated_at= format_time(@stock.updated_at)
-  p.provider= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"
+  / p.provider= link_to "Bloomberg", "https://www.bloomberg.co.jp/quote/#{@stock.code}:JP"
+  p.provider= link_to "Yahoo! ファイナンス", "https://stocks.finance.yahoo.co.jp/stocks/detail/?code=#{@stock.code}.T"

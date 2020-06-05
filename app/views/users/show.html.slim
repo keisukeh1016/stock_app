@@ -2,8 +2,7 @@
 
 table
   caption
-    = @user.name
-    br
+    .user_name= @user.name
     = render "layouts/dod_change", dod_change: @user.portfolio_average
   thead
     tr
@@ -21,6 +20,6 @@ table
 
         td.stock_name= link_to stock.name, stock
         td.stock_price= stock.today_price
-        td= render "layouts/dod_change", dod_change: stock.dod_change
+        td.stock_change= render "layouts/dod_change", dod_change: stock.dod_change
 - if @user == current_user
-  div.user_destroy= link_to "アカウントを削除", @user, method: :delete
+  #user_destroy= link_to "アカウントを削除", @user, method: :delete

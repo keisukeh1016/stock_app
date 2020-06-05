@@ -1,0 +1,25 @@
+.form_container {
+  margin: auto;
+  text-align: center;
+  width: 320px;
+  h1 {
+    margin: 0;
+    padding: 2rem;
+  }
+  .form_label {
+    display: block;
+    font-size: 1.6rem;
+    margin: 0.4rem 0.4rem;
+    text-align: left  
+  }
+  .form_input {
+    height: 2.4rem;
+    width: 95%;
+  }
+  .form_button {
+    display: block;
+    height: 4rem;
+    margin: 2rem auto;
+    width: 8rem;
+  }
+}

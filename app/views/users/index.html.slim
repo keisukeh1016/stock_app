@@ -15,9 +15,10 @@ table
         td.user_name= link_to user.name, user
 
         td.user_portfolio
-          - user.stocks.order(dod_change: :desc).each do |stock|
-            div
-              span.stock_name= link_to stock.name, stock
-              = render "layouts/dod_change", dod_change: stock.dod_change
+          ul
+            - user.stocks.order(dod_change: :desc).each do |stock|
+              li
+                span.stock_name= link_to stock.name, stock
+                span.stock_change= render "layouts/dod_change", dod_change: stock.dod_change
 
-        td= render "layouts/dod_change", dod_change: user.portfolio_average
+        td.stock_change= render "layouts/dod_change", dod_change: user.portfolio_average

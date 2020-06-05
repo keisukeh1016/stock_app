@@ -1,0 +1,25 @@
+#flash_messages{
+  border-radius: 2rem;
+  color: white;
+  height: 4rem;
+  line-height: 4rem;
+  margin: 2rem auto;
+  opacity: 0.5;
+  text-align: center;
+  width: 320px;
+  &.flash_notice {
+    background: blue;
+  }
+  &.flash_alert {
+    background: red;
+  }
+}
+
+#form_errors {
+  color: red;
+  margin: 1rem auto;
+  opacity: 0.5;
+  padding: 0;
+  text-align: center;
+  width: 320px;
+}

@@ -1,3 +1,43 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.user_portfolio {
+  font-size: 1.2rem;
+  padding: 0.4rem 0.8rem 0;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+      opacity: 0.6;
+      .stock_name {
+        a {
+          color: black;
+        }
+      }
+      .stock_change {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+caption {
+  .user_name {
+    margin-bottom: 1rem;
+  }
+}
+
+#user_destroy {
+  background: red;
+  border-radius: 2rem;
+  height: 5rem;
+  line-height: 5rem;
+  margin: 10rem auto 4rem;
+  opacity: 0.8;
+  text-align: center;
+  width: 200px;
+  a {
+    color: white;
+  }
+}

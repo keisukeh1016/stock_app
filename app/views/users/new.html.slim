@@ -1,7 +1,7 @@
 - @page_title = "新規登録"
 
 - if @user.errors.present?
-  ul#error_messages 
+  ul#form_errors
     - @user.errors.full_messages.each do |error|
       li= error
 

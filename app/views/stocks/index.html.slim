@@ -18,4 +18,4 @@ table
 
         td.stock_name= link_to stock.name, stock
         td.stock_price= stock.today_price
-        td= render "layouts/dod_change", dod_change: stock.dod_change
+        td.stock_change= render "layouts/dod_change", dod_change: stock.dod_change

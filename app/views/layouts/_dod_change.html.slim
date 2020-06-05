@@ -1,6 +1,6 @@
 - if dod_change > 0
-  span.stock_change.plus_price= "+#{absolute_value(dod_change)}%"
+  span.plus_price= "+#{absolute_value(dod_change)}%"
 - elsif dod_change < 0
-  span.stock_change.minus_price= "-#{absolute_value(dod_change)}%"
+  span.minus_price= "-#{absolute_value(dod_change)}%"
 - else
-  span.stock_change= "#{absolute_value(dod_change)}%"
+  span= "#{absolute_value(dod_change)}%"
