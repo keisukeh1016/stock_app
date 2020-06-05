@@ -12,26 +12,20 @@ module ApplicationHelper
     sprintf("%.2f", dod_change.round(2).abs)
   end
   
-  def jpx_holiday?
-    t = Time.zone.now.in_time_zone("Tokyo")
-    t.on_weekend? || JPX_HOLIDAY[t.month].include?(t.day)
-  end
-
-  def format_time(time)
-    t = time.in_time_zone("Tokyo").to_a
-    month   = t[4].to_s.length == 2 ? t[4].to_s : "0#{t[4]}"
-    day     = t[3].to_s.length == 2 ? t[3].to_s : "0#{t[3]}"
-    hour    = t[2].to_s.length == 2 ? t[2].to_s : "0#{t[2]}"
-    minutes = t[1].to_s.length == 2 ? t[1].to_s : "0#{t[1]}"
-    "#{month}/#{day} #{hour}:#{minutes}"
+  def jpx_holiday?(time)
+    time.on_weekend? || JPX_HOLIDAY[time.month].include?(time.day)
   end
 
   def header_date
-    t = Time.zone.now.in_time_zone("Tokyo")
-    if jpx_holiday?
-      "今日は休みです"
+    t = Time.zone.now.getlocal("+09:00")
+    if jpx_holiday?(t)
+      t = t-1.day while jpx_holiday?(t)
+      t.strftime("%m/%d 15:00")
     else
-      t.hour > 15 ? "#{t.month}/#{t.day} 15:00" : "#{t.month}/#{t.day - 1} 15:00"
+      # return (t-1.day).strftime("%m/%d 15:00") if t.hour < 12
+      # return t.strftime("%m/%d 11:30") if t.hour < 16
+      # return t.strftime("%m/%d 15:00")
+      t.hour > 15 ? t.strftime("%m/%d 15:00") : (t-1.day).strftime("%m/%d 15:00")
     end
   end
 
