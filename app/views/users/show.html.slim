@@ -3,7 +3,9 @@
 table
   caption
     .user_name= @user.name
-    = render "layouts/dod_change", dod_change: @user.portfolio_average
+    .user_grade
+      span= "#{@user_rank}位"
+      = render "layouts/dod_change", dod_change: @user.portfolio_average
   thead
     tr
       th コード

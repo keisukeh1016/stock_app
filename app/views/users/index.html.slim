@@ -10,7 +10,8 @@ table
       th 平均
   tbody
     - @users.each_with_index do |user, index|
-      tr
+      - next if user.portfolios.count == 0
+      tr class=("current_user" if user == current_user)
         td.user_rank= index + 1
         td.user_name= link_to user.name, user
 

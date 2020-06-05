@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user_rank = User.pluck(:portfolio_average).sort.reverse.find_index(@user.portfolio_average) + 1
     @stocks = @user.stocks.order(dod_change: :desc)
   end
 
