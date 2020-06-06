@@ -1,0 +1,5 @@
+h1 株式
+= "こんにちは、#{@user.name} さん"
+
+リンクをクリックしてアカウントを有効化してください
+= link_to "アカウントを有効化", edit_account_activation_url(@user.activation_token, email: @user.email)

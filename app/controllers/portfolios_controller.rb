@@ -1,4 +1,6 @@
 class PortfoliosController < ApplicationController
+  before_action :login_required
+
   def create
     portfolio = current_user.portfolios.build(portfolio_params)
 
@@ -24,6 +26,6 @@ class PortfoliosController < ApplicationController
     def update_average(user)
       arr = user.stocks.pluck(:dod_change)
       average = arr.empty? ? 0 : arr.sum / arr.length
-      user.update(portfolio_average: average) 
+      user.update_attribute(:portfolio_average, average) 
     end
 end

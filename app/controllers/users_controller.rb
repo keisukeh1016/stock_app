@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :login_required, only: :destroy
   before_action :current_user?, only: :destroy
 
   def index
@@ -19,8 +20,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      session[:user_id] = @user.id
-      redirect_to root_url, notice: "新規登録しました"
+      UserMailer.activation(@user).deliver_now
+      redirect_to root_url, notice: "メールを送信しました"
     else
       flash.now[:alert] = "新規登録に失敗しました"
       render "new"
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:name, :email, :password)
     end
     
     def current_user?

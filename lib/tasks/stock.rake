@@ -62,6 +62,6 @@ def update_users_average
   User.all.each do |user|
     arr = user.stocks.pluck(:dod_change)
     average = arr.empty? ? 0 : arr.sum / arr.length
-    user.update(portfolio_average: average)
+    user.update_attribute(:portfolio_average, average)
   end
 end
