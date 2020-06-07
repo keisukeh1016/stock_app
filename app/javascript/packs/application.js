@@ -22,6 +22,9 @@ document.addEventListener('turbolinks:load', () => {
   const menuList = document.querySelector("#menu_list");
   const menuListAll = document.querySelectorAll("#menu_list>li");
 
+  const passwordOpen = document.querySelector(".password_open");
+  const passwordField = document.querySelector(".password_field");
+
   function menuToggle() {
     header.classList.toggle("open");
     menuList.classList.toggle("open");
@@ -32,4 +35,12 @@ document.addEventListener('turbolinks:load', () => {
   for(let i = 0; i < 4; i++) {
     menuListAll[i].addEventListener("click", menuToggle);
   }
+
+  passwordOpen.addEventListener("click", () => {
+    if (passwordField.getAttribute("type") == "password" ) {
+      passwordField.setAttribute("type", "text");
+    } else {
+      passwordField.setAttribute("type", "password");
+    }
+  });
 });

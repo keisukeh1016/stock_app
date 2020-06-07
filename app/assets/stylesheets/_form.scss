@@ -17,6 +17,20 @@
     height: 2.4rem;
     width: 95%;
   }
+  .password_container {
+    position: relative;
+    .password_open {
+      background: silver;
+      border-radius: 0.8rem;
+      bottom: 0.2rem;
+      cursor: pointer;
+      font-size: 1.4rem;
+      opacity: 0.9;
+      right: 0.6rem;
+      padding: 0.2rem;
+      position: absolute;
+    }
+  }
   .form_button {
     display: block;
     height: 4rem;

@@ -14,7 +14,9 @@ section.form_container
     = f.label :email, "メールアドレス", class: "form_label"
     = f.email_field :email, class: "form_input"
 
-    = f.label :password, "パスワード", class: "form_label"
-    = f.password_field :password, class: "form_input"
+    .password_container
+      = f.label :password, "パスワード", class: "form_label"
+      = f.password_field :password, class: ["form_input", "password_field"]
+      span.password_open 表示
 
     = f.submit "新規登録", class: "form_button"
