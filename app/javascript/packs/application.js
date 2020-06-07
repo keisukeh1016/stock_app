@@ -17,30 +17,42 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 document.addEventListener('turbolinks:load', () => {
+  // スマホ用メニューバー
   const header = document.querySelector("header");
   const menuBar = document.querySelector("#menu_bar");
   const menuList = document.querySelector("#menu_list");
   const menuListAll = document.querySelectorAll("#menu_list>li");
-
-  const passwordOpen = document.querySelector(".password_open");
-  const passwordField = document.querySelector(".password_field");
-
   function menuToggle() {
     header.classList.toggle("open");
     menuList.classList.toggle("open");
   };
-  
-  menuBar.addEventListener("click", menuToggle);
-
-  for(let i = 0; i < 4; i++) {
-    menuListAll[i].addEventListener("click", menuToggle);
-  }
-
-  passwordOpen.addEventListener("click", () => {
-    if (passwordField.getAttribute("type") == "password" ) {
-      passwordField.setAttribute("type", "text");
-    } else {
-      passwordField.setAttribute("type", "password");
+  if ( menuBar !== null ) {
+    menuBar.addEventListener("click", menuToggle);
+    for(let i = 0; i < 4; i++) {
+      menuListAll[i].addEventListener("click", menuToggle);
     }
-  });
+  }
+  
+  // フォームのパスワード表示
+  const passwordOpen = document.querySelector(".password_open");
+  const passwordField = document.querySelector(".password_field");
+  if ( passwordOpen !== null ) {
+    passwordOpen.addEventListener("click", () => {
+      if (passwordField.getAttribute("type") == "password" ) {
+        passwordField.setAttribute("type", "text");
+      } else {
+        passwordField.setAttribute("type", "password");
+      }
+    });
+  }
+  
+  // アカウント削除ボタン表示
+  const destroyBar = document.querySelector("#destroy_open");
+  const destroyButton = document.querySelector("#destroy_button");
+  if ( destroyBar !== null ) {
+    destroyBar.addEventListener("click", () => {
+      destroyBar.textContent = "↓";
+      destroyButton.classList.add("open");
+    });
+  }
 });

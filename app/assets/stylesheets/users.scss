@@ -37,16 +37,30 @@ caption {
   }
 }
 
-#user_destroy {
-  background: red;
-  border-radius: 2rem;
-  height: 5rem;
-  line-height: 5rem;
-  margin: 10rem auto 4rem;
-  opacity: 0.8;
+#destroy_container {
+  margin: 4rem auto 4rem;
+  user-select: none;
   text-align: center;
-  width: 200px;
-  a {
-    color: white;
+  #destroy_open {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 4rem;
+    opacity: 0.4;
+  }
+  #destroy_button {
+    display: none;
+  }
+  #destroy_button.open {
+    background: red;
+    border-radius: 2rem;
+    display: block;
+    height: 5rem;
+    line-height: 5rem;
+    margin: 2rem auto;
+    opacity: 0.8;
+    width: 200px;
+    a {
+      color: white;
+    }
   }
 }

@@ -43,6 +43,7 @@ RSpec.describe 'ユーザーの登録、削除', type: :system do
     context '自分のアカウントのページ' do
       before do
         visit user_path(user2)
+        find_by_id("destroy_open").click 
         click_link 'アカウントを削除'
       end
       it 'ユーザーの削除に成功' do
