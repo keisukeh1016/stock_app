@@ -1,5 +1,14 @@
 - @page_title = "銘柄一覧"
 
+.form_container= search_form_for @q do |f|
+  = f.label :code_eq, class: "form_label"
+  = f.search_field :code_eq, class: "form_input"
+
+  = f.label :name_cont, class: "form_label"
+  = f.search_field :name_cont, class: "form_input"
+
+  = f.submit "検索", class: "form_button"
+
 table
   caption 銘柄一覧
   thead
@@ -7,7 +16,7 @@ table
       th コード
       th 銘柄
       th 終値
-      th 前日比
+      th= sort_link(@q, :dod_change)
   tbody
     - @stocks.each do |stock|
       tr

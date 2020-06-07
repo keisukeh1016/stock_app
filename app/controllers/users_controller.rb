@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :current_user?, only: :destroy
 
   def index
-    @users = User.order(portfolio_average: :desc)
+    @users = User.order(portfolio_average: :desc).limit(15)
   end
 
   def show
