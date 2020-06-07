@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def header_date
-    t = Time.zone.now.getlocal("+09:00")
+    t = Time.zone.now
     if jpx_holiday?(t)
       t = t-1.day while jpx_holiday?(t)
       t.strftime("%m/%d 15:00")

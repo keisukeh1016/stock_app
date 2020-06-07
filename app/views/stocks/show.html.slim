@@ -8,6 +8,6 @@ section.stock_show
   span.stock_price= @stock.today_price
   .stock_change= render "layouts/dod_change", dod_change: @stock.dod_change
 
-  p.stock_updated_at= @stock.updated_at.getlocal("+09:00").strftime("%m/%d %H:%M")
+  p.stock_updated_at= @stock.updated_at.strftime("%m/%d %H:%M")
 
   p.provider= link_to "Yahoo! ファイナンス", "https://stocks.finance.yahoo.co.jp/stocks/detail/?code=#{@stock.code}.T"

@@ -46,7 +46,7 @@ def yesterday_price(stock)
 end
 
 def jpx_holiday?
-  t = Time.zone.now.in_time_zone("Tokyo")
+  t = Time.zone.now
   t.on_weekend? || JPX_HOLIDAY[t.month].include?(t.day)
 end
 
