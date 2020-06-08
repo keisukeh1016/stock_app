@@ -18,14 +18,12 @@ module ApplicationHelper
 
   def header_date
     t = Time.zone.now
-    if jpx_holiday?(t)
+    if t.hour > 15
       t = t-1.day while jpx_holiday?(t)
       t.strftime("%m/%d 15:00")
     else
-      # return (t-1.day).strftime("%m/%d 15:00") if t.hour < 12
-      # return t.strftime("%m/%d 11:30") if t.hour < 16
-      # return t.strftime("%m/%d 15:00")
-      t.hour > 15 ? t.strftime("%m/%d 15:00") : (t-1.day).strftime("%m/%d 15:00")
+      t = t-1.day while jpx_holiday?(t-1.day)
+      (t-1.day).strftime("%m/%d 15:00")
     end
   end
 
