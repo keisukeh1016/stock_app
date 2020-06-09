@@ -10,9 +10,7 @@ threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-# port        ENV.fetch("PORT") { 3000 }
-bind "unix:///#{ENV['RAILS_ROOT']}/tmp/sockets/puma.sock"
-daemonize true
+bind ENV['PUMA_URL']
 
 # Specifies the `environment` that Puma will run in.
 #

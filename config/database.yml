@@ -15,3 +15,4 @@ production:
   <<: *default
   database: stock_app_production
   host: <%= ENV['PG_HOST'] %> 
+  username: <%= ENV['PG_USERNAME'] %>
