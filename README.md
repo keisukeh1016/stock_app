@@ -1,4 +1,4 @@
-https://stock-ja.herokuapp.com/
+AWS http://3.112.247.61/
 
 # 銘柄ポートフォリオを作成
 
@@ -12,7 +12,9 @@ https://stock-ja.herokuapp.com/
 
 ## 環境
 
-* Heroku Postgres
+* AWS EC2 Ubuntu Nginx + Puma
+
+* AWS EC2 Ubuntu PostgreSQL
 
 * Ruby 2.7.1
 
@@ -20,8 +22,8 @@ https://stock-ja.herokuapp.com/
 
 * RSpec
 
-* RubyGems
-  - slim-rails
-  - nokogiri
-  - roo
-  - faker
+* Slim
+
+### その他
+
+* Heroku https://stock-ja.herokuapp.com/

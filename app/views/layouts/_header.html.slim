@@ -13,4 +13,9 @@ header
       - else
         li= link_to "新規登録", new_user_path
         li= link_to "ログイン", login_path
+        li= form_with scope: :session, url: login_url, local: true, id: "test_form" do |f|
+            = f.hidden_field :email, value: "test@example.com"
+            = f.hidden_field :password, value: "testpass"
+            = f.submit "テストログイン", id: "test_button"
+
   .header_date= header_date

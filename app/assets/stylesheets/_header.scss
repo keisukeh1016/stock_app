@@ -15,6 +15,14 @@ header {
       a {
         color: white;
       }
+      #test_button {
+        background: gray;
+        border: 0;
+        color: white;
+        cursor: pointer;
+        font-size: 2rem;
+        padding: 0;
+      }
     }
   }
   .header_date {
@@ -23,10 +31,10 @@ header {
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 830px) {
   header {
     &.open {
-      margin-bottom: 28.4rem;
+      margin-bottom: 35.5rem;
     }
     #menu_bar {
       cursor: pointer;
