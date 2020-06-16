@@ -1,9 +1,10 @@
 - if current_user 
-  - portfolio = current_user.portfolios.find_by(stock_code: stock.code)
-  - if portfolio
-      = form_with scope: :portfolio, url: portfolio, method: :delete, local: true do |f|
-        = f.hidden_field :stock_code, value: stock.code
-        = f.submit "削除", class: ["portfolio_button", "delete_button"]
+  - if stock.users.ids.include?(current_user.id)
+    - portfolio = stock.portfolios.find_by(user_id: current_user.id)
+    
+    = form_with scope: :portfolio, url: portfolio, method: :delete, local: true do |f|
+      = f.hidden_field :stock_code, value: stock.code
+      = f.submit "削除", class: ["portfolio_button", "delete_button"]
   - else
       = form_with scope: :portfolio, url: portfolios_path, local: true do |f|
         = f.hidden_field :stock_code, value: stock.code

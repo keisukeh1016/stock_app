@@ -3,14 +3,15 @@ class UsersController < ApplicationController
   before_action :current_user?, only: :destroy
 
   def index
-    @users = User.joins(:stocks)
-                 .select("users.*, avg(#{stock_day_change}) as user_day_change")
+    @users = User.select("users.*, avg(#{stock_day_change}) as user_day_change")
+                 .joins(:stocks)
                  .group("users.id")
                  .order("user_day_change desc")
                  .limit(10)
 
-    @users_portfolios = User.joins(:stocks)
-                            .select("users.id as user_id, stocks.code as stock_code, stocks.name as stock_name, #{stock_day_change} as stock_day_change")
+    @users_portfolios = User.select("users.id as user_id, stocks.code as stock_code, stocks.name as stock_name, 
+                                     #{stock_day_change} as stock_day_change")
+                            .joins(:stocks)
                             .order("stock_day_change desc")
   end
 
@@ -20,8 +21,7 @@ class UsersController < ApplicationController
     @user_rank = User.joins(:stocks)
                      .group("users.id")
                      .having("avg(#{stock_day_change}) > #{@user.day_change}")
-                     .count
-                     .count + 1
+                     .length + 1
 
     @stocks = @user.stocks.order(stock_day_change + ' desc')
   end
