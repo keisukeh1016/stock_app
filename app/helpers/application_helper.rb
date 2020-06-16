@@ -8,8 +8,8 @@ module ApplicationHelper
     @page_title ? "#{@page_title} | 株式" : "株式"
   end
   
-  def absolute_value(dod_change)
-    sprintf("%.2f", dod_change.round(2).abs)
+  def absolute_value(day_change)
+    sprintf("%.2f", day_change.round(2).abs)
   end
   
   def jpx_holiday?(time)

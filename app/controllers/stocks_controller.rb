@@ -1,7 +1,7 @@
 class StocksController < ApplicationController
   def index
     @q = Stock.ransack(params[:q])
-    @stocks = @q.result(distinct: true).order(dod_change: :desc).limit(15)
+    @stocks = @q.result.order(stock_day_change + ' desc').limit(20)
   end
 
   def show
@@ -9,7 +9,6 @@ class StocksController < ApplicationController
   end
 
   private
-
     def search_params
       params.require(:q).permit(:code_eq, :name_cont)
     end

@@ -9,7 +9,7 @@ ja:
       stock:
         code: コード
         name: 銘柄名
-        dod_change: 前日比
+        day_change: 前日比
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
