@@ -12,13 +12,11 @@ namespace :stock do
   task price: :environment do
     break if jpx_holiday?
     update_stocks_price
-    update_users_average
   end 
 
   desc "株価を更新する（手動用）"
   task price_man: :environment do
     update_stocks_price    
-    update_users_average
   end 
 end
 
@@ -52,16 +50,6 @@ end
 
 def update_stocks_price
   Stock.all.each do |stock|
-    price = [today_price(stock), yesterday_price(stock)]
-    dod_change = (price[0] - price[1]) / price[1] * 100
-    stock.update(today_price: price[0], yesterday_price: price[1], dod_change: dod_change)
-  end
-end
-
-def update_users_average
-  User.all.each do |user|
-    arr = user.stocks.pluck(:dod_change)
-    average = arr.empty? ? 0 : arr.sum / arr.length
-    user.update_attribute(:portfolio_average, average)
+    stock.update( today_price: today_price(stock), yesterday_price: yesterday_price(stock) )
   end
 end

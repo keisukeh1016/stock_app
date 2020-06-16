@@ -1,0 +1,5 @@
+class RemoveColumnPortfolioAverageFromUsers < ActiveRecord::Migration[6.0]
+  def change
+    remove_column :users, :portfolio_average, :float
+  end
+end

@@ -6,7 +6,7 @@ section.stock_show
 
   = render "layouts/portfolio_button", stock: @stock
   span.stock_price= @stock.today_price
-  .stock_change= render "layouts/dod_change", dod_change: @stock.dod_change
+  .stock_change= render "layouts/day_change", day_change: @stock.day_change
 
   p.stock_updated_at= @stock.updated_at.strftime("%m/%d %H:%M")
 

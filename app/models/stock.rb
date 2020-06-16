@@ -8,5 +8,8 @@ class Stock < ApplicationRecord
   validates :code, presence: true,
                    uniqueness: true,
                    length: { is: 4 }
-  validates :dod_change, presence: true
+                   
+  def day_change
+    (today_price - yesterday_price) / yesterday_price * 100 
+  end
 end

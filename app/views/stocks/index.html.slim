@@ -16,7 +16,7 @@ table
       th コード
       th 銘柄
       th 終値
-      th= sort_link(@q, :dod_change)
+      th 前日比
   tbody
     - @stocks.each do |stock|
       tr
@@ -27,4 +27,4 @@ table
 
         td.stock_name= link_to stock.name, stock
         td.stock_price= stock.today_price
-        td.stock_change= render "layouts/dod_change", dod_change: stock.dod_change
+        td.stock_change= render "layouts/day_change", day_change: stock.day_change

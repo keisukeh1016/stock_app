@@ -1,5 +1,3 @@
-- @page_title = "ユーザーランキング"
-
 table
   caption ユーザーランキング
   thead
@@ -16,9 +14,10 @@ table
 
         td.user_portfolio
           ul
-            - user.stocks.order(dod_change: :desc).each do |stock|
+            - @users_portfolios.each do |portfolio|
+              - next unless user.id == portfolio.user_id
               li
-                span.stock_name= link_to stock.name, stock
-                span.stock_change= render "layouts/dod_change", dod_change: stock.dod_change
+                span.stock_name= link_to portfolio.stock_name, stock_path(portfolio.stock_code)
+                span.stock_change= render "layouts/day_change", day_change: portfolio.stock_day_change
 
-        td.stock_change= render "layouts/dod_change", dod_change: user.portfolio_average
+        td.stock_change= render "layouts/day_change", day_change: user.user_day_change

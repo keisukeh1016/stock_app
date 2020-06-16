@@ -5,7 +5,7 @@ table
     .user_name= @user.name
     .user_grade
       span= "#{@user_rank}位"
-      = render "layouts/dod_change", dod_change: @user.portfolio_average
+      = render "layouts/day_change", day_change: @user.day_change
   thead
     tr
       th コード
@@ -22,7 +22,7 @@ table
 
         td.stock_name= link_to stock.name, stock
         td.stock_price= stock.today_price
-        td.stock_change= render "layouts/dod_change", dod_change: stock.dod_change
+        td.stock_change= render "layouts/day_change", day_change: stock.day_change
 - if @user == current_user
   #destroy_container
     span#destroy_open > アカウント削除ボタンを表示
