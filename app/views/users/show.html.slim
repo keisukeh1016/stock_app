@@ -3,9 +3,10 @@
 table
   caption
     .user_name= @user.name
-    .user_grade
-      span= "#{@user_rank}位"
-      = render "layouts/day_change", day_change: @user.day_change
+    .user_status
+      span.user_rank= "#{@user_rank}位"
+      span.user_total_assets= "#{@user.total_assets.to_i}円"  
+
   thead
     tr
       th コード
@@ -13,7 +14,7 @@ table
       th 終値
       th 前日比
   tbody
-    - @stocks.each do |stock|
+    - @user.stocks.each do |stock|
       tr
         td.stock_code
           = stock.code

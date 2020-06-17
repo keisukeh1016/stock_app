@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_083852) do
+ActiveRecord::Schema.define(version: 2020_06_16_161137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_083852) do
     t.integer "stock_code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "holding", default: 1, null: false
     t.index ["stock_code"], name: "index_portfolios_on_stock_code"
     t.index ["user_id", "stock_code"], name: "index_portfolios_on_user_id_and_stock_code", unique: true
     t.index ["user_id"], name: "index_portfolios_on_user_id"
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_083852) do
     t.float "today_price", default: 1.0, null: false
     t.float "yesterday_price", default: 1.0, null: false
     t.index ["code"], name: "index_stocks_on_code", unique: true
+    t.index ["today_price", "yesterday_price"], name: "index_stocks_on_today_price_and_yesterday_price"
   end
 
   create_table "users", force: :cascade do |t|

@@ -30,20 +30,21 @@ table {
     margin: 2rem 0;
   }
   th {
-    border-bottom: 0.2rem solid silver;
     padding: 1rem 0;
   }
   td {
-    border-bottom: 0.1rem solid silver;
+    border-top: 0.2rem solid silver;
     height: 4rem;
     padding: 0.8rem;
+    text-align: center;
     &.user_rank {
       padding: 0.2rem;
-      text-align: center;
     }
     &.user_name {
       padding: 0 0.4rem;
-      text-align: center;
+    }
+    &.user_total_assets {
+      text-align: right;
     }
     &.stock_code {
       text-align: center;
