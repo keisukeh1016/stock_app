@@ -22,9 +22,9 @@ table
                 span.asset_holding= portfolio.holding
 
                 - if portfolio.stock_day_change >= 0
-                  span.plus_price.asset_subtotal= "#{portfolio.asset.to_i} 円"
+                  span.plus_price.asset_subtotal= "#{portfolio.user_subtotal_asset.to_i} 円"
                 - else
-                  span.minus_price.asset_subtotal= "#{portfolio.asset.to_i} 円"
+                  span.minus_price.asset_subtotal= "#{portfolio.user_subtotal_asset.to_i} 円"
             li
               span.asset_name 現金
               span.asset_subtotal= "#{user.cash.to_i} 円"

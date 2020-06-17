@@ -33,16 +33,10 @@ table {
     padding: 1rem 0;
   }
   td {
-    border-top: 0.2rem solid silver;
+    border-top: 0.3rem solid silver;
     height: 4rem;
     padding: 0.8rem;
     text-align: center;
-    &.user_rank {
-      padding: 0.2rem;
-    }
-    &.user_name {
-      padding: 0 0.4rem;
-    }
     &.user_total_assets {
       text-align: right;
     }
@@ -53,10 +47,24 @@ table {
       padding-right: 0.2rem;
       text-align: right;
     }
-    &.stock_change {
-      font-size: 2rem;
-      padding-right: 0.2rem;
+    &.portfolio_button {
+      border: none;
+    }
+    &.asset_holding {
+      border: none;
+    }
+    &.asset_subtotal {
+      border: none;
+      padding-right: 1rem;
       text-align: right;
+    }
+    &.asset_change {
+      font-size: 2rem;
+      text-align: right;
+    }
+    &.user_cash {
+      text-align: right;
+      min-width: 8rem;
     }
   }
 }

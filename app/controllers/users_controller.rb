@@ -15,20 +15,26 @@ class UsersController < ApplicationController
                                      users.*,
                                      stocks.*,
                                      #{stock_day_change} as stock_day_change,
-                                     today_price * holding as asset")
+                                     today_price * holding as user_subtotal_asset")
                             .joins(:stocks)
-                            .order("asset desc")
+                            .order("user_subtotal_asset desc")
   end
 
   def show
-    @user = User.includes(:stocks)
-                .where(id: params[:id])
-                .first
-
+    @user = User.find(params[:id])
+    
     @user_rank = User.joins(:stocks)
                      .group("users.id")
                      .having("sum(today_price * holding) + cash > #{@user.total_assets}")
                      .length + 1
+
+    @stocks = Stock.select("stocks.*,
+                            portfolios.*,
+                            #{stock_day_change} as stock_day_change,
+                            today_price * holding as user_subtotal_asset")
+                   .joins(:users)
+                   .where("users.id = #{@user.id}")
+                   .order("user_subtotal_asset desc")
   end
 
   def new

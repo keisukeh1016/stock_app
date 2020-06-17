@@ -11,19 +11,24 @@ table
     tr
       th コード
       th 銘柄
-      th 終値
       th 前日比
   tbody
-    - @user.stocks.each do |stock|
+    - @stocks.each do |stock|
       tr
-        td.stock_code
-          = stock.code
+        td.stock_code= stock.code
+        td.asset_name= link_to stock.name, stock
+        td.asset_change= render "layouts/day_change", day_change: stock.stock_day_change
+      tr
+        td.portfolio_button
           - if @user == current_user
             = render "layouts/portfolio_button", stock: stock
+        td.asset_holding= "#{stock.holding} 株"
+        td.asset_subtotal= "#{stock.user_subtotal_asset.to_i} 円"
+    tr
+      td
+      td.asset_name 現金
+      td.user_cash= "#{@user.cash.to_i}円"
 
-        td.stock_name= link_to stock.name, stock
-        td.stock_price= stock.today_price
-        td.stock_change= render "layouts/day_change", day_change: stock.day_change
 - if @user == current_user
   #destroy_container
     span#destroy_open > アカウント削除ボタンを表示

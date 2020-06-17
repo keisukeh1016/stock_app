@@ -14,14 +14,6 @@ class User < ApplicationRecord
   validates :password, presence: true,
                        length: { minimum: 6 }
 
-  # def day_change
-  #   if portfolios.count > 0
-  #     stocks.average('(today_price - yesterday_price) / yesterday_price * 100') + 0.0001
-  #   else
-  #     0
-  #   end
-  # end
-
   def total_assets
     self.stocks.sum("today_price * holding") + self.cash + 0.1
   end
