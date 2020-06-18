@@ -9,8 +9,4 @@ class ApplicationController < ActionController::Base
     def login_required
       redirect_to root_url unless current_user
     end
-
-    def stock_day_change
-      '(today_price - yesterday_price) / yesterday_price * 100'
-    end
 end

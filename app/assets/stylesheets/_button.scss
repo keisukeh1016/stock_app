@@ -1,0 +1,44 @@
+input.holding_field {
+  font-size: 2rem;
+  height: 2rem;
+  width: 5rem;
+}
+
+input.button {
+  border: solid;
+  border-radius: 1rem;
+  color: white;
+  cursor: pointer;
+  height: 4rem;
+  opacity: 0.7;
+  width: 5.6rem;
+  &.add_button {
+    background: blue;
+  }
+  &.update_button {
+    background: green;
+  }
+  &.delete_button {
+    background: red;
+  }
+}
+
+span.button {
+  border: solid;
+  border-radius: 1rem;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 2rem;
+  height: 3rem;
+  line-height: 3rem;
+  opacity: 0.7;
+  user-select: none;
+  width: 3rem;
+  &.open_button {
+    background: blue;
+  }
+  &.close_button {
+    background: red;
+  }
+}

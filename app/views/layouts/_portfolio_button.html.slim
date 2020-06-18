@@ -4,8 +4,10 @@
     
     = form_with scope: :portfolio, url: portfolio, method: :delete, local: true do |f|
       = f.hidden_field :stock_code, value: stock.code
+      = f.hidden_field :holding, value: 0
       = f.submit "削除", class: ["portfolio_button", "delete_button"]
   - else
       = form_with scope: :portfolio, url: portfolios_path, local: true do |f|
         = f.hidden_field :stock_code, value: stock.code
+        = f.hidden_field :holding, value: 1
         = f.submit "追加", class: ["portfolio_button", "add_button"]

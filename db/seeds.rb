@@ -23,10 +23,4 @@ User.create(
     activated: true
   )
 end
-    
-# ポートフォリオを追加
-arr = Stock.pluck(:code).shuffle
-User.all.each do |user|
-  arr.shuffle!
-  5.times { |n| user.portfolios.create(stock_code: arr[n]) }
-end
+

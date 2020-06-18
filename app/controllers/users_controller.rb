@@ -3,38 +3,23 @@ class UsersController < ApplicationController
   before_action :current_user?, only: :destroy
 
   def index
-    @users = User.select("users.*,
-                          sum(today_price * holding) + cash as user_total_assets,
-                          avg(#{stock_day_change}) as user_day_change")
-                 .joins(:stocks)
+    @users = User.preload(:stocks, :wallet)
+                 .select("users.*, sum(today_price * holding) + avg(distinct cash) as user_total_assets")
+                 .joins(:stocks, :wallet)
                  .group("users.id")
-                 .order("user_total_assets desc")
+                 .order(user_total_assets: :desc)
                  .limit(10)
-
-    @users_portfolios = User.select("portfolios.*,
-                                     users.*,
-                                     stocks.*,
-                                     #{stock_day_change} as stock_day_change,
-                                     today_price * holding as user_subtotal_asset")
-                            .joins(:stocks)
-                            .order("user_subtotal_asset desc")
   end
 
   def show
-    @user = User.find(params[:id])
-    
-    @user_rank = User.joins(:stocks)
-                     .group("users.id")
-                     .having("sum(today_price * holding) + cash > #{@user.total_assets}")
-                     .length + 1
+    @user = User.preload(:stocks, :wallet)
+                .find(params[:id])
 
-    @stocks = Stock.select("stocks.*,
-                            portfolios.*,
-                            #{stock_day_change} as stock_day_change,
-                            today_price * holding as user_subtotal_asset")
-                   .joins(:users)
-                   .where("users.id = #{@user.id}")
-                   .order("user_subtotal_asset desc")
+    @user_rank = User.joins(:stocks, :wallet)
+                     .group("users.id")
+                     .order("sum(today_price * holding) + avg(distinct cash) desc")
+                     .ids
+                     .index(@user.id) + 1
   end
 
   def new

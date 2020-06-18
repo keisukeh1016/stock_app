@@ -7,6 +7,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :stocks,     only: [:index, :show]
-  resources :portfolios, only: [:create, :destroy]
+  resources :portfolios
   resources :account_activations, only: :edit
 end

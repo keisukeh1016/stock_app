@@ -55,4 +55,23 @@ document.addEventListener('turbolinks:load', () => {
       destroyButton.classList.add("open");
     });
   }
+
+  // マイページ編集
+  const statusRows = document.querySelectorAll(".portfolio_status_row");
+  const editRows = document.querySelectorAll(".portfolio_edit_row");
+  const openButtons = document.querySelectorAll(".open_button");
+  const closeButtons = document.querySelectorAll(".close_button");
+
+  for (let i = 0; i < editRows.length; i++) {
+    openButtons[i].addEventListener("click", () => {
+      statusRows[i].classList.remove("open");
+      editRows[i].classList.add("open");
+    });
+    
+    closeButtons[i].addEventListener("click", () => {
+      editRows[i].classList.remove("open");
+      statusRows[i].classList.add("open");
+    });
+  }
+
 });

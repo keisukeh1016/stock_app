@@ -2,6 +2,7 @@ class User < ApplicationRecord
   attr_accessor :activation_token
   before_create :create_activation_digest
 
+  has_one :wallet
   has_many :portfolios, dependent: :destroy
   has_many :stocks, through: :portfolios
 
@@ -15,7 +16,7 @@ class User < ApplicationRecord
                        length: { minimum: 6 }
 
   def total_assets
-    self.stocks.sum("today_price * holding") + self.cash + 0.1
+    stocks.sum("today_price * holding") + wallet.cash
   end
 
   private

@@ -1,44 +1,73 @@
-tr.current_user {
-  background: beige;
-}
-
-.user_portfolio {
-  border-top: 0.1rem solid silver;
-  font-size: 1.2rem;
-  padding: 0.4rem 0.8rem 0;
-  ul {
-    margin: 0;
-    padding: 0;
-    li {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1.2rem;
-      opacity: 0.6;
-      .asset_name {
-        text-align: left;
-        width: 65%;
-        a {
-          color: black;
+// index
+table.user_index {
+  td {
+    &.user_total_assets {
+      text-align: right;
+    }
+    &.user_portfolios {
+      border-top: 0.1rem solid silver;
+      font-size: 1.2rem;
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1.2rem;
+          opacity: 0.6;
+          .asset_name {
+            text-align: left;
+            width: 65%;
+            a {
+              color: black;
+            }
+          }
+          .asset_subtotal {
+            font-size: 1.6rem;
+            text-align: right;
+            width: 30%;
+          }
         }
-      }
-      .asset_subtotal {
-        font-size: 1.6rem;
-        text-align: right;
-        width: 30%;
       }
     }
   }
 }
 
-caption {
-  .user_name {
-    margin-bottom: 2rem;
+// show
+table.user_show {
+  caption {
+    .user_name {
+      margin-bottom: 2rem;
+    }
+    .user_status {
+      display: flex;
+      justify-content: space-between;
+      width: 24rem;
+    }
   }
-  .user_status {
-    display: flex;
-    justify-content: space-between;
-    width: 24rem;
+  tr {
+    &.portfolio_status_row {
+      display: none;
+      &.open {
+        display: table-row;
+      }
+    }
+    &.portfolio_edit_row {
+      display: none;
+      &.open {
+        display: table-row;
+      }
+    }
+    td {
+      &.asset_name {
+        max-width: 20rem;
+      }
+      &.asset_subtotal {
+        min-width: 7rem;
+        text-align: right;
+      }
+    }
   }
 }
 
