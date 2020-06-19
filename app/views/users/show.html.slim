@@ -35,7 +35,6 @@ table.user_show
             = form_with scope: :portfolio, url: portfolio, method: :patch, local: true, class: "portfolio_update" do |f|
               = f.hidden_field :stock_code, value: portfolio.stock.code
               = f.number_field :holding, class: "holding_field", value: portfolio.holding
-              = " 株"
               = f.submit "更新", class: ["button", "update_button"]
 
         td.asset_subtotal

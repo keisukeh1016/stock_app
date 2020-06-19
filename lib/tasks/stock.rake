@@ -8,20 +8,19 @@ namespace :stock do
     end
   end
   
-  desc "株価とポートフォリオを更新"
+  desc "株価を更新する"
   task price: :environment do
     break if jpx_holiday?
-    shuffle_users_portfolios
     update_stocks_price
   end 
 
-  desc "株価を更新する"
+  desc "株価を更新する（手動）"
   task price_man: :environment do
     update_stocks_price    
   end 
 
   desc "ポートフォリオを更新する"
-  task portfolio_man: :environment do
+  task portfolio: :environment do
     shuffle_users_portfolios
   end 
 end
