@@ -15,11 +15,15 @@ class UsersController < ApplicationController
     @user = User.preload(:stocks, :wallet)
                 .find(params[:id])
 
-    @user_rank = User.joins(:stocks, :wallet)
-                     .group("users.id")
-                     .order("sum(today_price * holding) + avg(distinct cash) desc")
-                     .ids
-                     .index(@user.id) + 1
+    if @user.portfolios.count > 0
+      @user_rank = User.joins(:stocks, :wallet)
+                      .group("users.id")
+                      .order("sum(today_price * holding) + avg(distinct cash) desc")
+                      .ids
+                      .index(@user.id) + 1
+    else
+      @user_rank = "null"
+    end
   end
 
   def new

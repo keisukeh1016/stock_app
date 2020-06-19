@@ -57,20 +57,27 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   // マイページ編集
-  const statusRows = document.querySelectorAll(".portfolio_status_row");
-  const editRows = document.querySelectorAll(".portfolio_edit_row");
   const openButtons = document.querySelectorAll(".open_button");
   const closeButtons = document.querySelectorAll(".close_button");
+  const portfolioHoldings = document.querySelectorAll(".portfolio_holding");
+  const portfolioUpdates = document.querySelectorAll(".portfolio_update");
+  const portfolioDeletes = document.querySelectorAll(".portfolio_delete");
 
-  for (let i = 0; i < editRows.length; i++) {
+  for (let i = 0; i < openButtons.length; i++) {
     openButtons[i].addEventListener("click", () => {
-      statusRows[i].classList.remove("open");
-      editRows[i].classList.add("open");
+      openButtons[i].classList.remove("open");
+      closeButtons[i].classList.add("open");
+      portfolioHoldings[i].classList.remove("open");
+      portfolioUpdates[i].classList.add("open");
+      portfolioDeletes[i].classList.add("open");
     });
-    
+
     closeButtons[i].addEventListener("click", () => {
-      editRows[i].classList.remove("open");
-      statusRows[i].classList.add("open");
+      openButtons[i].classList.add("open");
+      closeButtons[i].classList.remove("open");
+      portfolioHoldings[i].classList.add("open");
+      portfolioUpdates[i].classList.remove("open");
+      portfolioDeletes[i].classList.remove("open");
     });
   }
 

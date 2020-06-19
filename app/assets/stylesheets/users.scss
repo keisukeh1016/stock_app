@@ -46,26 +46,49 @@ table.user_show {
       width: 24rem;
     }
   }
-  tr {
-    &.portfolio_status_row {
+  td.stock_code {
+    .open_button {
       display: none;
       &.open {
-        display: table-row;
+        display: block;
       }
     }
-    &.portfolio_edit_row {
+    .close_button {
       display: none;
       &.open {
-        display: table-row;
+        display: block;
       }
     }
-    td {
-      &.asset_name {
-        max-width: 20rem;
+  }
+  td.asset_name {
+    font-size: 1.2rem;
+  }
+  td.asset_holding {
+    width: 7.6rem;
+    .portfolio_holding {
+      display: none;
+      &.open {
+        display: block;
       }
-      &.asset_subtotal {
-        min-width: 7rem;
-        text-align: right;
+    }
+    .portfolio_update {
+      display: none;
+      &.open {
+        display: block;
+      }
+      .button {
+        margin-top: 0.8rem;
+      }
+    }
+  }
+  td.asset_subtotal {
+    min-width: 7rem;
+    text-align: right;
+    .portfolio_delete {
+      display: none;
+      text-align: center;
+      &.open {
+        display: block;
       }
     }
   }
