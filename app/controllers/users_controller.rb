@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     if @user.email == "test@example.com"
       redirect_to @user, alert: "テストユーザーは削除できません"
     else
-      @user.destroy
+      @user.destroy!
       redirect_to root_url, alert: "アカウントを削除しました"
     end
   end

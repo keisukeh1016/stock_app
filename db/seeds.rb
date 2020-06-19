@@ -6,14 +6,6 @@ sheet.each do |row|
   Stock.create(code: row[2]) if row[5] == "TOPIX Core30" || row[5] == "TOPIX Large70"
 end
 
-# テストユーザーを追加
-User.create(
-  name: "test",
-  email: "test@example.com",
-  password: "testpass",
-  activated: true
-)
-
 # ユーザーを追加
 50.times do
   user = User.create(
@@ -23,4 +15,11 @@ User.create(
     activated: true
   )
 end
-
+  
+# テストユーザーを追加
+User.create(
+  name: "test",
+  email: "test@example.com",
+  password: "testpass",
+  activated: true
+)

@@ -29,7 +29,13 @@ table.stock_index {
   }
   .portfolio_form {
     grid-column: 2 / 3;
-    height: 6rem;
+    height: 7rem;
+    .add_button {
+      margin-top: 1rem;
+    }
+    .update_button {
+      margin-top: 1rem;
+    }
   }
   .asset_price {
     font-size: 5rem;

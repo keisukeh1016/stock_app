@@ -18,7 +18,7 @@ table.user_index {
           opacity: 0.6;
           .asset_name {
             text-align: left;
-            width: 65%;
+            width: 55%;
             a {
               color: black;
             }
@@ -49,19 +49,21 @@ table.user_show {
   td.stock_code {
     .open_button {
       display: none;
+      margin: 0 auto;
       &.open {
         display: block;
       }
     }
     .close_button {
       display: none;
+      margin: 0 auto;
       &.open {
         display: block;
       }
     }
   }
   td.asset_name {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
   td.asset_holding {
     width: 7.6rem;

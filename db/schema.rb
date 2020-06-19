@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_18_182356) do
+ActiveRecord::Schema.define(version: 2020_06_19_180545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_06_18_182356) do
     t.integer "stock_code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "holding", default: 1, null: false
+    t.integer "holding", null: false
     t.index ["stock_code"], name: "index_portfolios_on_stock_code"
     t.index ["user_id", "stock_code"], name: "index_portfolios_on_user_id_and_stock_code", unique: true
     t.index ["user_id"], name: "index_portfolios_on_user_id"

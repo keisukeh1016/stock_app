@@ -12,6 +12,7 @@ section.stock_show
       = form_with scope: :portfolio, url: portfolios_path, local: true, class: "portfolio_form" do |f|
         = f.hidden_field :stock_code, value: @stock.code
         = f.number_field :holding, class: "holding_field", value: 1
+        br
         = f.submit "購入", class: ["button", "add_button"]
 
     - else
@@ -19,12 +20,14 @@ section.stock_show
       = form_with scope: :portfolio, url: portfolio, method: :patch, local: true, class: "portfolio_form" do |f|
         = f.hidden_field :stock_code, value: @stock.code
         = f.number_field :holding, class: "holding_field", value: portfolio.holding
+        br
         = f.submit "更新", class: ["button", "update_button"]
 
       - portfolio = current_user.portfolios.find_by(stock_code: @stock.code)
       = form_with scope: :portfolio, url: portfolio, method: :delete, local: true, class: "portfolio_form" do |f|
         = f.hidden_field :stock_code, value: @stock.code
         = f.hidden_field :holding, value: 0
+        br
         = f.submit "全売却", class: ["button", "delete_button"]
 
   p.asset_updated_at= @stock.updated_at.strftime("%m/%d %H:%M")
