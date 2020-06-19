@@ -1,13 +1,34 @@
 - @page_title = "#{@stock.code} #{@stock.name}"
 
 section.stock_show
-  span.stock_code= @stock.code
-  h1.stock_name= @stock.name
+  span.asset_code= @stock.code
+  h1.asset_name= @stock.name
 
-  = render "layouts/portfolio_button", stock: @stock
-  span.stock_price= @stock.today_price
-  .stock_change= render "layouts/day_change", day_change: @stock.day_change
+  span.asset_price= @stock.today_price
+  .asset_change= render "layouts/day_change", day_change: @stock.day_change
 
-  p.stock_updated_at= @stock.updated_at.strftime("%m/%d %H:%M")
+  - if current_user
+    - if current_user.stocks.ids.include?(@stock.code) == false
+      = form_with scope: :portfolio, url: portfolios_path, local: true, class: "portfolio_form" do |f|
+        = f.hidden_field :stock_code, value: @stock.code
+        = f.number_field :holding, class: "holding_field", value: 1
+        br
+        = f.submit "購入", class: ["button", "add_button"]
 
+    - else
+      - portfolio = current_user.portfolios.find_by(stock_code: @stock.code)
+      = form_with scope: :portfolio, url: portfolio, method: :patch, local: true, class: "portfolio_form" do |f|
+        = f.hidden_field :stock_code, value: @stock.code
+        = f.number_field :holding, class: "holding_field", value: portfolio.holding
+        br
+        = f.submit "更新", class: ["button", "update_button"]
+
+      - portfolio = current_user.portfolios.find_by(stock_code: @stock.code)
+      = form_with scope: :portfolio, url: portfolio, method: :delete, local: true, class: "portfolio_form" do |f|
+        = f.hidden_field :stock_code, value: @stock.code
+        = f.hidden_field :holding, value: 0
+        br
+        = f.submit "全売却", class: ["button", "delete_button"]
+
+  p.asset_updated_at= @stock.updated_at.strftime("%m/%d %H:%M")
   p.provider= link_to "Yahoo! ファイナンス", "https://stocks.finance.yahoo.co.jp/stocks/detail/?code=#{@stock.code}.T"

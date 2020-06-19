@@ -2,16 +2,9 @@ class StocksController < ApplicationController
   def index
     @q = Stock.ransack(params[:q])
 
-    if current_user
-      @stocks = @q.result
-                  .includes(:users)
-                  .order(stock_day_change + ' desc')
-                  .limit(20)
-    else
-      @stocks = @q.result
-                  .order(stock_day_change + ' desc')
-                  .limit(20)
-    end
+    @stocks = @q.result
+                .order("(today_price - yesterday_price) / yesterday_price * 100 desc")
+                .limit(30)
   end
 
   def show

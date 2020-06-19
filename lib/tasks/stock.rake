@@ -8,15 +8,21 @@ namespace :stock do
     end
   end
   
-  desc "株価を更新する"
+  desc "株価とポートフォリオを更新"
   task price: :environment do
     break if jpx_holiday?
+    shuffle_users_portfolios
     update_stocks_price
   end 
 
-  desc "株価を更新する（手動用）"
+  desc "株価を更新する"
   task price_man: :environment do
     update_stocks_price    
+  end 
+
+  desc "ポートフォリオを更新する"
+  task portfolio_man: :environment do
+    shuffle_users_portfolios
   end 
 end
 
@@ -50,6 +56,22 @@ end
 
 def update_stocks_price
   Stock.all.each do |stock|
-    stock.update( today_price: today_price(stock), yesterday_price: yesterday_price(stock) )
+    stock.update!( today_price: today_price(stock), yesterday_price: yesterday_price(stock) )
+  end
+end
+
+def shuffle_users_portfolios
+  code_arr = Stock.ids.shuffle
+  User.where("id <= 50").each do |user|
+    user.portfolios.destroy_all
+
+    code_arr[0..4].each { |code| user.portfolios.create(stock_code: code, holding: 1) }
+    
+    begin
+      bool_arr = []
+      user.portfolios.each { |portfolio| bool_arr << portfolio.update(holding: portfolio.holding + 1) }
+    end while bool_arr.include?(true)
+  
+    code_arr.shuffle!
   end
 end

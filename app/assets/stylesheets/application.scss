@@ -2,7 +2,7 @@
 @import 'messages';
 @import 'form';
 @import 'day_change';
-@import 'portfolio_button';
+@import 'button';
 @import 'users';
 @import 'stocks';
 
@@ -22,40 +22,25 @@ html {
 }
 
 table {
+  border-collapse: collapse;
   font-size: 1.6rem;
   margin: auto;
   min-width: 320px;
+  text-align: center;
   caption {
     font-size: 3rem;
     margin: 2rem 0;
   }
+  tr.main_row {
+    td {
+      border-top: 0.2rem solid silver;
+    }
+  }
   th {
-    border-bottom: 0.2rem solid silver;
-    padding: 1rem 0;
+    padding: 0.8rem;
   }
   td {
-    border-bottom: 0.1rem solid silver;
     height: 4rem;
     padding: 0.8rem;
-    &.user_rank {
-      padding: 0.2rem;
-      text-align: center;
-    }
-    &.user_name {
-      padding: 0 0.4rem;
-      text-align: center;
-    }
-    &.stock_code {
-      text-align: center;
-    }
-    &.stock_price{
-      padding-right: 0.2rem;
-      text-align: right;
-    }
-    &.stock_change {
-      font-size: 2rem;
-      padding-right: 0.2rem;
-      text-align: right;
-    }
   }
 }

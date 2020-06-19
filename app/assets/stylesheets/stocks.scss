@@ -1,3 +1,16 @@
+// index
+table.stock_index {
+  td {
+    &.asset_price {
+      text-align: right;
+    }
+    &.asset_change {
+      text-align: right;
+    }
+  }
+}
+
+// show
 .stock_show {
   align-items: center;
   display: grid;
@@ -5,34 +18,37 @@
   margin: 1rem auto;
   text-align: center;
   width: 320px;
-  .stock_code {
+  .asset_code {
     grid-column: 1 / 2;
   }
-  .stock_name {
+  .asset_name {
     font-size: 2rem;
     grid-column: 2 / 4;
     margin-left: 0.4rem;
     text-align: left;
   }
-  .portfolio_button {
-    display: block;
-    font-size: 1.8rem;
-    grid-column: 1 / 2;
-    height: 5rem;
-    margin-top: 1rem;
-    width: 6rem;
+  .portfolio_form {
+    grid-column: 2 / 3;
+    height: 7rem;
+    .add_button {
+      margin-top: 1rem;
+    }
+    .update_button {
+      margin-top: 1rem;
+    }
   }
-  .stock_price {
+  .asset_price {
     font-size: 5rem;
     grid-column: 2 / 3;
     margin: 3rem 0;
   }
-  .stock_change {
+  .asset_change {
     display: block;
     grid-column: 3 / 4;
     margin-top: 2.4rem;
   }
-  .stock_updated_at {
+
+  .asset_updated_at {
     font-size: 1.6rem;
     grid-column: 2 / 3;
     opacity: 0.8;

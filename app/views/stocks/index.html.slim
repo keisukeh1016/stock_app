@@ -9,22 +9,18 @@
 
   = f.submit "検索", class: "form_button"
 
-table
+table.stock_index
   caption 銘柄一覧
   thead
     tr
-      th コード
+      th 
       th 銘柄
       th 終値
       th 前日比
   tbody
     - @stocks.each do |stock|
-      tr
-        td.stock_code
-          = stock.code
-          - if current_user
-            = render "layouts/portfolio_button", stock: stock
-
-        td.stock_name= link_to stock.name, stock
-        td.stock_price= stock.today_price
-        td.stock_change= render "layouts/day_change", day_change: stock.day_change
+      tr.main_row
+        td.asset_code= stock.code
+        td.asset_name= link_to stock.name, stock
+        td.asset_price= stock.today_price
+        td.asset_change= render "layouts/day_change", day_change: stock.day_change

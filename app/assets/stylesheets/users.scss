@@ -1,38 +1,97 @@
-tr.current_user {
-  background: beige;
-}
-
-.user_portfolio {
-  font-size: 1.2rem;
-  padding: 0.4rem 0.8rem 0;
-  ul {
-    margin: 0;
-    padding: 0;
-    li {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1.2rem;
-      opacity: 0.6;
-      .stock_name {
-        a {
-          color: black;
+// index
+table.user_index {
+  td {
+    &.user_total_assets {
+      text-align: right;
+    }
+    &.user_portfolios {
+      border-top: 0.1rem solid silver;
+      font-size: 1.2rem;
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 1.2rem;
+          opacity: 0.6;
+          .asset_name {
+            text-align: left;
+            width: 55%;
+            a {
+              color: black;
+            }
+          }
+          .asset_subtotal {
+            font-size: 1.6rem;
+            text-align: right;
+            width: 30%;
+          }
         }
-      }
-      .stock_change {
-        font-size: 1.6rem;
       }
     }
   }
 }
 
-caption {
-  .user_name {
-    margin-bottom: 2rem;
+// show
+table.user_show {
+  caption {
+    .user_name {
+      margin-bottom: 2rem;
+    }
+    .user_status {
+      display: flex;
+      justify-content: space-between;
+      width: 24rem;
+    }
   }
-  .user_grade {
-    span {
-      margin: 0 2rem;
+  td.stock_code {
+    .open_button {
+      display: none;
+      margin: 0 auto;
+      &.open {
+        display: block;
+      }
+    }
+    .close_button {
+      display: none;
+      margin: 0 auto;
+      &.open {
+        display: block;
+      }
+    }
+  }
+  td.asset_name {
+    font-size: 1.4rem;
+  }
+  td.asset_holding {
+    width: 7.6rem;
+    .portfolio_holding {
+      display: none;
+      &.open {
+        display: block;
+      }
+    }
+    .portfolio_update {
+      display: none;
+      &.open {
+        display: block;
+      }
+      .button {
+        margin-top: 0.8rem;
+      }
+    }
+  }
+  td.asset_subtotal {
+    min-width: 7rem;
+    text-align: right;
+    .portfolio_delete {
+      display: none;
+      text-align: center;
+      &.open {
+        display: block;
+      }
     }
   }
 }

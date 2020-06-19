@@ -2,22 +2,43 @@ class PortfoliosController < ApplicationController
   before_action :login_required
 
   def create
-    portfolio = current_user.portfolios.build(portfolio_params)
+    @portfolio = current_user.portfolios.build(portfolio_params)
+    return unless portfolio_valid?
 
-    if portfolio.save
-      redirect_to user_url(current_user), notice: "銘柄を追加しました"
-    else
-      redirect_to user_url(current_user), alert: "銘柄登録の上限は５件です"
-    end
+    @portfolio.save!
+    redirect_to user_url(current_user), notice: "銘柄を購入しました"
+  end
+
+  def update
+    set_portfolio
+    return unless portfolio_valid?
+
+    @portfolio.update!(portfolio_params)
+    redirect_to user_url(current_user), notice: "売買が完了しました"
   end
 
   def destroy
-    current_user.portfolios.find_by(portfolio_params).destroy
-    redirect_to user_url(current_user), alert: "銘柄を削除しました"
+    set_portfolio
+    return unless portfolio_valid?
+    
+    @portfolio.destroy!
+    redirect_to user_url(current_user), notice: "銘柄を売却しました"
   end
 
   private
     def portfolio_params
-      params.require(:portfolio).permit(:stock_code)
+      params.require(:portfolio).permit(:stock_code, :holding)
+    end
+
+    def set_portfolio
+      @portfolio = current_user.portfolios.find(params[:id])
+      @portfolio.holding = portfolio_params[:holding]  
+    end
+
+    def portfolio_valid?
+      redirect_to user_url(current_user), alert: "正の整数を入力してください" and return if @portfolio.holding < 0
+      redirect_to user_url(current_user), alert: "現金が不足しています" and return unless @portfolio.user_has_enough_money?
+      redirect_to user_url(current_user), alert: "銘柄登録の上限は５件です" and return if @portfolio.excess_count_limit?
+      true
     end
 end

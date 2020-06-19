@@ -3,27 +3,27 @@ class UsersController < ApplicationController
   before_action :current_user?, only: :destroy
 
   def index
-    @users = User.select("users.*, avg(#{stock_day_change}) as user_day_change")
-                 .joins(:stocks)
+    @users = User.preload(:stocks, :wallet)
+                 .select("users.*, sum(today_price * holding) + avg(distinct cash) as user_total_assets")
+                 .joins(:stocks, :wallet)
                  .group("users.id")
-                 .order("user_day_change desc")
+                 .order(user_total_assets: :desc)
                  .limit(10)
-
-    @users_portfolios = User.select("users.id as user_id, stocks.code as stock_code, stocks.name as stock_name, 
-                                     #{stock_day_change} as stock_day_change")
-                            .joins(:stocks)
-                            .order("stock_day_change desc")
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.preload(:stocks, :wallet)
+                .find(params[:id])
 
-    @user_rank = User.joins(:stocks)
-                     .group("users.id")
-                     .having("avg(#{stock_day_change}) > #{@user.day_change}")
-                     .length + 1
-
-    @stocks = @user.stocks.order(stock_day_change + ' desc')
+    if @user.portfolios.count > 0
+      @user_rank = User.joins(:stocks, :wallet)
+                      .group("users.id")
+                      .order("sum(today_price * holding) + avg(distinct cash) desc")
+                      .ids
+                      .index(@user.id) + 1
+    else
+      @user_rank = "null"
+    end
   end
 
   def new
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     if @user.email == "test@example.com"
       redirect_to @user, alert: "テストユーザーは削除できません"
     else
-      @user.destroy
+      @user.destroy!
       redirect_to root_url, alert: "アカウントを削除しました"
     end
   end

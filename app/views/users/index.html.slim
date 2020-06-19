@@ -1,23 +1,29 @@
-table
+table.user_index
   caption ユーザーランキング
   thead
     tr
       th
       th 名前
-      th 保有銘柄
-      th 平均
+      th 総資産
   tbody
     - @users.each_with_index do |user, index|
-      tr class=("current_user" if user == current_user)
+      tr.main_row
         td.user_rank= index + 1
         td.user_name= link_to user.name, user
-
-        td.user_portfolio
+        td.user_total_assets= "#{user.user_total_assets.to_i} 円"
+      tr
+        td
+        td.user_portfolios colspan=2
           ul
-            - @users_portfolios.each do |portfolio|
-              - next unless user.id == portfolio.user_id
+            - user.portfolios.sort_by{|portfolio| portfolio.total_value}.reverse.each do |portfolio|
               li
-                span.stock_name= link_to portfolio.stock_name, stock_path(portfolio.stock_code)
-                span.stock_change= render "layouts/day_change", day_change: portfolio.stock_day_change
+                span.asset_name= link_to portfolio.stock.name, portfolio.stock
+                span.asset_holding= portfolio.holding
 
-        td.stock_change= render "layouts/day_change", day_change: user.user_day_change
+                - if (portfolio.stock.today_price - portfolio.stock.yesterday_price) >= 0
+                  span.plus_price.asset_subtotal= "#{(portfolio.total_value).to_i} 円"
+                - else
+                  span.minus_price.asset_subtotal= "#{(portfolio.total_value).to_i} 円"
+            li
+              span.asset_name 現金
+              span.asset_subtotal= "#{user.wallet.cash.to_i} 円"
