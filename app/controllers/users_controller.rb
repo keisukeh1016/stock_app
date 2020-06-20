@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if @user.portfolios.count > 0
       @user_rank = User.joins(:stocks, :wallet)
                       .group("users.id")
-                      .order("sum(today_price * holding) + avg(distinct cash) desc")
+                      .order( Arel.sql("sum(today_price * holding) + avg(distinct cash) desc") )
                       .ids
                       .index(@user.id) + 1
     else

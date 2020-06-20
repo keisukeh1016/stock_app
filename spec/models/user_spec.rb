@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
           expect(user2).not_to be_valid
         end
       end
-      context 'メールアドレスが他のユーザーの重複' do
+      context 'メールアドレスが他のユーザーと重複' do
         let(:user2_email) { user1.email }
         it 'ユーザーの登録に失敗' do
           expect(user2).not_to be_valid
@@ -66,7 +66,7 @@ RSpec.describe User, type: :model do
           expect(user2).not_to be_valid
         end
       end
-      context 'パスワードが６文字以下' do
+      context 'パスワードが６文字以上' do
         let(:user2_password) { 'password' }
         it 'ユーザーの登録に成功' do
           expect(user2).to be_valid

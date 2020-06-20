@@ -20,7 +20,7 @@ RSpec.describe Portfolio, type: :model do
     end
   end
 
-  describe 'ポートフォリオの登録数上限' do
+  describe '登録数上限' do
     context '登録済み銘柄が４件以下のとき' do
       let(:portfolio5) { build(:portfolio, user: user, stock: stock5) }
       it '登録に成功' do
@@ -32,6 +32,63 @@ RSpec.describe Portfolio, type: :model do
       let(:portfolio6) { build(:portfolio, user: user, stock: stock6) }
       it '登録に失敗' do
         expect(portfolio6).not_to be_valid
+      end
+    end
+  end
+
+  describe '保有数の値' do
+    context '保有数が負の整数のとき' do
+      let(:portfolio5) { build(:portfolio, user: user, stock: stock5, holding: -1) }
+      it '登録に失敗' do
+        expect(portfolio5).not_to be_valid
+      end
+    end
+
+    context '保有数が小数のとき' do
+      let(:portfolio5) { build(:portfolio, user: user, stock: stock5, holding: 1.5) }
+      it '登録に失敗' do
+        expect(portfolio5).not_to be_valid
+      end
+    end
+
+    context '保有数が正の整数のとき' do
+      let(:portfolio5) { build(:portfolio, user: user, stock: stock5, holding: 1) }
+      it '登録に成功' do
+        expect(portfolio5).to be_valid
+      end
+    end
+  end
+
+  describe '現金の増減' do
+    let!(:before_cash) { user.wallet.cash }
+
+    context '銘柄を購入した場合' do
+      let!(:portfolio5) { create(:portfolio, user: user, stock: stock5, holding: 1) }
+      let!(:after_cash) { before_cash - (portfolio5.stock.today_price * portfolio5.holding) }
+      it '現金が減少' do
+        expect(user.wallet.cash).to eq(after_cash)
+      end
+    end
+
+    context '保有数を変更した場合' do
+      let!(:before_holding) { portfolio4.holding }
+      before do
+        portfolio4.update(holding: 3)
+      end
+      let!(:after_cash) { before_cash - ( portfolio4.stock.today_price * (portfolio4.holding - before_holding) ) }
+
+      it '現金が変化' do
+        expect(user.wallet.cash).to eq(after_cash)
+      end
+    end
+  
+    context '銘柄を売却した場合' do
+      let!(:after_cash) { before_cash + (portfolio4.stock.today_price * portfolio4.holding) }
+      before do
+        portfolio4.destroy
+      end
+      it '現金が増加' do
+        expect(user.wallet.cash).to eq(after_cash)
       end
     end
   end

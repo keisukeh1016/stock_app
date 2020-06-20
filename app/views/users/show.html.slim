@@ -17,7 +17,7 @@ table.user_show
       td
       td.asset_name 現金
       td
-      td.asset_subtotal= "#{@user.wallet.cash.to_i} 円"
+      td.asset_subtotal.user_cash= "#{@user.wallet.cash.to_i} 円"
 
     - @user.portfolios.sort_by{|portfolio| portfolio.stock.code}.each do |portfolio|
       tr.main_row

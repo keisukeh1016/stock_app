@@ -3,22 +3,22 @@ require 'rails_helper'
 RSpec.describe 'ユーザーの登録、削除', type: :system do
   let(:user1) { create(:user)}
   
-  describe 'ユーザーの登録' do
+  describe 'ユーザーの新規登録' do
     let(:user2) { build(:user, name: 'Alice', email: 'user2@example.com', password: 'password') }
     before do
       visit new_user_path
     end
-    # context '有効な情報で新規登録' do
-    #   before do
-    #     fill_in 'ユーザー名', with: user2.name
-    #     fill_in 'メールアドレス', with: user2.email
-    #     fill_in 'パスワード', with: user2.password
-    #     click_button '新規登録'
-    #   end
-    #   it '新規登録に成功' do
-    #     expect(page).to have_text 'メールを送信しました'
-    #   end
-    # end
+    context '有効な情報で新規登録' do
+      before do
+        fill_in 'ユーザー名', with: user2.name
+        fill_in 'メールアドレス', with: user2.email
+        fill_in 'パスワード', with: user2.password
+        click_button '新規登録'
+      end
+      it '新規登録に成功' do
+        expect(page).to have_text 'メールを送信しました'
+      end
+    end
     context '無効な情報で新規登録' do
       before do
         fill_in 'ユーザー名', with: user1.name
@@ -28,6 +28,29 @@ RSpec.describe 'ユーザーの登録、削除', type: :system do
       end
       it 'ユーザの登録に失敗' do
         expect(page).to have_text '新規登録に失敗しました'
+      end
+    end
+  end
+
+  describe 'アカウントの有効化' do
+    let(:user2) { build(:user, name: 'Alice', email: 'user2@example.com', password: 'password') }
+    before do
+      visit new_user_path
+      fill_in 'ユーザー名', with: user2.name
+      fill_in 'メールアドレス', with: user2.email
+      fill_in 'パスワード', with: user2.password
+      click_button '新規登録'
+    end
+    
+    context '有効化前のログイン' do
+      before do
+        visit login_path
+        fill_in 'メールアドレス', with: user2.email  
+        fill_in 'パスワード', with: user2.password
+        click_button 'ログイン'
+      end
+      it 'ログインに失敗' do
+        expect(page).to have_text 'アカウントが有効化されていません'
       end
     end
   end
