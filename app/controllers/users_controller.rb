@@ -7,7 +7,7 @@ class UsersController < ApplicationController
                  .select("users.*, sum(today_price * holding) + avg(distinct cash) as user_total_assets")
                  .joins(:stocks, :wallet)
                  .group("users.id")
-                 .order(user_total_assets: :desc)
+                 .order(user_total_assets: :desc, id: :asc)
                  .page(params[:page])
                  .per(10)
 
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if @user.portfolios.count > 0
       @user_rank = User.joins(:stocks, :wallet)
                       .group("users.id")
-                      .order( Arel.sql("sum(today_price * holding) + avg(distinct cash) desc") )
+                      .order( Arel.sql("sum(today_price * holding) + avg(distinct cash) desc"), id: :asc)
                       .ids
                       .index(@user.id) + 1
     else
