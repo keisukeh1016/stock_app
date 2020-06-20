@@ -36,9 +36,11 @@ AWS https://stock-app.net/
 
 * roo ( スプレッドシート )
 
-* faker ( ランダムなユーザーネーム )
+* faker ( ユーザーネーム )
 
 * ransack ( 検索フォーム )
+
+* kaminari ( ページネーション )
 
 ## 機能
 

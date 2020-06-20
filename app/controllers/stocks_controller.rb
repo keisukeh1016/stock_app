@@ -4,7 +4,6 @@ class StocksController < ApplicationController
 
     @stocks = @q.result
                 .order("(today_price - yesterday_price) / yesterday_price * 100 desc")
-                .limit(30)
   end
 
   def show

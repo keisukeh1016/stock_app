@@ -50,3 +50,19 @@ table {
     width: 100%;
   }
 }
+
+nav.pagination {
+  margin: 2rem auto 7rem;
+  text-align: center;
+  .first, .prev, .next, .last {
+    display: none;
+  }
+  span.page {
+    border: 0.2rem solid silver;
+    display: inline-block;
+    font-size: 2rem;
+    height: 3rem;
+    line-height: 3rem;
+    width: 3rem;
+  }
+}

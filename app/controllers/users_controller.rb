@@ -8,7 +8,10 @@ class UsersController < ApplicationController
                  .joins(:stocks, :wallet)
                  .group("users.id")
                  .order(user_total_assets: :desc)
-                 .limit(10)
+                 .page(params[:page])
+                 .per(10)
+
+    @page_num = params[:page] ? params[:page].to_i : 1
   end
 
   def show
@@ -22,7 +25,7 @@ class UsersController < ApplicationController
                       .ids
                       .index(@user.id) + 1
     else
-      @user_rank = "null"
+      @user_rank = "null "
     end
   end
 

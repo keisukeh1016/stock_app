@@ -8,7 +8,7 @@ table.user_index
   tbody
     - @users.each_with_index do |user, index|
       tr.main_row
-        td.user_rank= index + 1
+        td.user_rank= (@page_num - 1) * 10 + (index + 1)
         td.user_name= link_to user.name, user
         td.user_total_assets= "#{user.user_total_assets.to_i} 円"
       tr
@@ -20,10 +20,12 @@ table.user_index
                 span.asset_name= link_to portfolio.stock.name, portfolio.stock
                 span.asset_holding= portfolio.holding
 
-                - if (portfolio.stock.today_price - portfolio.stock.yesterday_price) >= 0
+                - if portfolio.stock.day_change >= 0
                   span.plus_price.asset_subtotal= "#{(portfolio.total_value).to_i} 円"
                 - else
                   span.minus_price.asset_subtotal= "#{(portfolio.total_value).to_i} 円"
             li
               span.asset_name 現金
               span.asset_subtotal= "#{user.wallet.cash.to_i} 円"
+    
+= paginate @users
