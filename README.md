@@ -1,18 +1,16 @@
-AWS https://stock-app.net/
+EC2 https://stock-app.net/
 
 #### テストユーザーでログインできます
 
+![トップページ](./app/assets/images/toppage.png)
+
 ## 概要
 
-1. ユーザー登録
+1. 株式売買の体験ができます
 
-2. 10万円が支給されます
+2. １０万円を増やしてみましょう
 
-3. 他のユーザーを参考にして、銘柄を売買
-
-4. 10万円をどこまで増やせるか？減るか？
-
-5. ランキングで１位を目指そう
+3. 他のユーザーと競争しましょう
 
 #### 株価は平日１６時頃更新されます。
 
@@ -20,7 +18,7 @@ AWS https://stock-app.net/
 
 * AWS EC2 Ubuntu Nginx + Puma
 
-* AWS EC2 Ubuntu PostgreSQL
+* AWS RDS PostgreSQL
 
 * Ruby 2.7.1
 
@@ -62,7 +60,10 @@ AWS https://stock-app.net/
 
 * SSL/TLS ( Let's Encrypt )
 
+## コードの場所
 
+* 株価更新
+  - [lib/tasks/stock.rake](https://github.com/keisukeh1016/stock_app/blob/master/lib/tasks/stock.rake)
 
 ## 他のデプロイ場所
 
