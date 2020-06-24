@@ -36,13 +36,13 @@ def stock_name(stock)
   data ? data[1] : nil
 end
 
-def today_price(stock)
+def stock_today_price(stock)
   html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
   data = Nokogiri::HTML(html).css(".price").to_s.match(/>(.*)</)
   data ? data[1].delete(",").to_f : 1
 end
 
-def yesterday_price(stock)
+def stock_yesterday_price(stock)
   html = URI.open("https://www.bloomberg.co.jp/quote/#{stock.code}:JP")
   data = Nokogiri::HTML(html).css(".data-table_detailed>div:nth-child(4)>div:nth-child(2)").to_s.match(/>\s(.*)\s</)
   data ? data[1].delete(",").to_f : 1
@@ -55,7 +55,7 @@ end
 
 def update_stocks_price
   Stock.all.each do |stock|
-    stock.update!( today_price: today_price(stock), yesterday_price: yesterday_price(stock) )
+    stock.update!( today_price: stock_today_price(stock), yesterday_price: stock_yesterday_price(stock) )
   end
 end
 
