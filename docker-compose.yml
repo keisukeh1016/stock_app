@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./docker/nginx
+    image: keisukeh1016/stock-nginx
+    ports:
+      - 8080:80
+    volumes:
+      - type: volume
+        source: rails_public
+        target: /stock_app/public
+    restart: always
+
+  rails:
+    build: .
+    image: keisukeh1016/stock-rails
+    env_file: development.env
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+    volumes:
+      - type: volume
+        source: rails_public
+        target: /stock_app/public
+    restart: always
+
+  rails-migrate:
+    build: .
+    image: keisukeh1016/stock-rails
+    env_file: development.env
+    command: ["./docker/wait-postgres.sh"]
+
+  postgres:
+    image: postgres:13
+    env_file: development.env
+    volumes:
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql/data
+    restart: always
+
+volumes:
+  rails_public:
+  postgres: 
