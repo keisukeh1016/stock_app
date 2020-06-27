@@ -4,30 +4,17 @@ services:
   nginx:
     build: ./docker/nginx
     image: keisukeh1016/stock-nginx
-    ports:
-      - 8080:80
-    volumes:
-      - type: volume
-        source: rails_public
-        target: /stock_app/public
-    restart: always
+    # ports:
+    #   - 8080:80
+    # restart: always
 
   rails:
     build: .
     image: keisukeh1016/stock-rails
     env_file: development.env
-    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
-    volumes:
-      - type: volume
-        source: rails_public
-        target: /stock_app/public
+    ports:
+      - 3000:3000
     restart: always
-
-  rails-migrate:
-    build: .
-    image: keisukeh1016/stock-rails
-    env_file: development.env
-    command: ["./docker/wait-postgres.sh"]
 
   postgres:
     image: postgres:13
@@ -39,5 +26,4 @@ services:
     restart: always
 
 volumes:
-  rails_public:
   postgres: 

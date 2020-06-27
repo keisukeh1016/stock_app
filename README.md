@@ -16,7 +16,7 @@ EC2 https://stock-app.net/
 
 ## 環境
 
-* AWS EC2 Ubuntu Nginx + Puma
+* AWS ECS(EC2) Nginx + Puma
 
 * AWS RDS PostgreSQL
 
@@ -39,6 +39,12 @@ EC2 https://stock-app.net/
 * ransack ( 検索フォーム )
 
 * kaminari ( ページネーション )
+
+#### ローカル環境
+
+* Ubuntu
+
+* Docker Compose
 
 ## 機能
 
