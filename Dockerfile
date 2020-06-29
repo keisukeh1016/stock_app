@@ -24,5 +24,7 @@ COPY . .
 RUN chmod 777 docker/wait-postgres.sh
 RUN chmod 777 docker/initialize.sh
 
+RUN bundle exec rails assets:precompile
+
 EXPOSE 3000
 CMD ["./docker/wait-postgres.sh", "bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
