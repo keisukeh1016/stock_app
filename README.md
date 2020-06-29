@@ -46,6 +46,10 @@ EC2 https://stock-app.net/
 
 * Docker Compose
 
+#### デプロイ
+
+* Docker Hub -> AWS ECS
+
 ## 機能
 
 * アカウント作成／削除
@@ -71,8 +75,10 @@ EC2 https://stock-app.net/
 * 株価更新
   - [lib/tasks/stock.rake](https://github.com/keisukeh1016/stock_app/blob/master/lib/tasks/stock.rake)
 
+* デプロイ
+  - [deploy-ecs.rb](https://github.com/keisukeh1016/stock_app/blob/master/deploy-ecs.rb)
+
 ## 他のデプロイ場所
 
-* AWS https://stock-app.net/
-
-* Heroku https://stock-ja.herokuapp.com/
+* Heroku 
+  - https://stock-ja.herokuapp.com/
