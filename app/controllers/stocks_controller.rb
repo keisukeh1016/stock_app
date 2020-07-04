@@ -8,6 +8,7 @@ class StocksController < ApplicationController
 
   def show
     @stock = Stock.find(params[:id])
+    @tweets = Tweet.list(@stock.name, 5)
   end
 
   private

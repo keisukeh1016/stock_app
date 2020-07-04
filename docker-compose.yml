@@ -6,7 +6,6 @@ services:
     image: keisukeh1016/stock-nginx
     # ports:
     #   - 8080:80
-    # restart: always
 
   rails:
     build: .
@@ -14,7 +13,6 @@ services:
     env_file: development.env
     ports:
       - 3000:3000
-    restart: always
 
   postgres:
     image: postgres:13
@@ -23,7 +21,6 @@ services:
       - type: volume
         source: postgres
         target: /var/lib/postgresql/data
-    restart: always
 
 volumes:
   postgres: 
