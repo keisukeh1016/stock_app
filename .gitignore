@@ -38,4 +38,3 @@ yarn-debug.log*
 # env_file
 development.env
 production.env
-production-test.env

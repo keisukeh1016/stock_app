@@ -11,12 +11,17 @@ table.stock_index {
   }
 }
 
+// show_container
+.stock_container {
+  display: flex;
+  margin: 2rem auto;
+}
+
 // show
 .stock_show {
   align-items: center;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  margin: 1rem auto;
   text-align: center;
   width: 320px;
   .asset_code {
@@ -59,5 +64,79 @@ table.stock_index {
     grid-column: 2 / 3;
     margin-top: 1rem;
     opacity: 0.4;
+  }
+}
+
+// .tweet
+.stock_tweets {
+  width: 500px;
+  h2 {
+    font-size: 2rem;
+    margin: 1.6rem 0;
+    text-align: center;
+  }
+  .tweet {
+    font-size: 1.6rem;
+    border: 0.1rem solid silver;
+    border-radius: 1.2rem;
+    padding: 2rem 1rem;
+    .tweet_user {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 50px 1.6rem 1fr;
+      .tweet_user_image {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+        img {
+          border-radius: 50%;
+        }
+      }
+      .tweet_user_name {
+        font-size: 1.4rem;
+        grid-column: 3 / 4;
+        a {
+          color: black;
+        }
+      }
+      .tweet_user_id {
+        align-self: start;
+        font-size: 1.2rem;
+        grid-column: 3 / 4;
+        opacity: 0.6;
+        a {
+          color: black;
+        }
+      }
+    }
+    .tweet_text {
+      margin: 0.8rem 0;
+      opacity: 0.8;
+      a {
+        color: black;
+      }
+    }
+    .tweet_created_at {
+      font-size: 1.4rem;
+      opacity: 0.6;
+    }
+  }
+}
+
+@media (min-width: 860px) {
+  .stock_container {
+    align-items: flex-start;
+    justify-content: space-evenly;  
+  }
+}
+
+@media (max-width: 860px) {
+  .stock_container {
+    flex-direction: column;
+    .stock_show {
+      margin: 0 auto;
+    }
+    .stock_tweets {
+      margin: 0 auto;
+    }
   }
 }
