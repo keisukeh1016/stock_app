@@ -14,17 +14,6 @@ EC2 https://stock-app.net/
 
 # 環境
 
-#### 本番環境
-
-* AWS ECS
-
-  - Nginx
-  - Rails(Puma)
-
-* AWS RDS
-
-  - PostgreSQL
-
 * Ruby 2.7.1
 
 * Rails 6.0.3
@@ -32,6 +21,17 @@ EC2 https://stock-app.net/
 * Slim
 
 * RSpec
+
+#### 本番環境
+
+* AWS ECS
+
+  - Nginx
+  - Puma
+
+* AWS RDS
+
+  - PostgreSQL
 
 #### ローカル環境
 
@@ -41,9 +41,13 @@ EC2 https://stock-app.net/
 
 #### デプロイ
 
-* Docker Hub -> AWS ECS
+* [deploy-ecs.rb](https://github.com/keisukeh1016/stock_app/blob/master/deploy-ecs.rb)
 
-  - [deploy-ecs.rb](https://github.com/keisukeh1016/stock_app/blob/master/deploy-ecs.rb)
+1. DockerfileからimageをBuild
+
+2. Docker HubにPush
+
+3. AWS ECS タスクを停止＆実行
 
 # 機能
 
