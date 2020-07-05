@@ -4,45 +4,38 @@ EC2 https://stock-app.net/
 
 ![トップページ](./app/assets/images/toppage.png)
 
-## 概要
+# 概要
 
 1. 株式売買の体験ができます
 
-2. １０万円を増やしてみましょう
+2. 他のユーザーと競争しましょう
 
-3. 他のユーザーと競争しましょう
+3. 株価は平日１６時頃更新されます。
 
-#### 株価は平日１６時頃更新されます。
+# 環境
 
-## 環境
+#### 本番環境
 
-* AWS ECS(EC2) Nginx + Puma
+* AWS ECS
 
-* AWS RDS PostgreSQL
+  - Nginx
+  - Rails(Puma)
+
+* AWS RDS
+
+  - PostgreSQL
 
 * Ruby 2.7.1
 
 * Rails 6.0.3
 
+* Slim
+
 * RSpec
-
-* Slim (HTML)
-
-#### gem 
-
-* nokogiri ( スクレイピング )
-
-* roo ( スプレッドシート )
-
-* faker ( ユーザーネーム )
-
-* ransack ( 検索フォーム )
-
-* kaminari ( ページネーション )
 
 #### ローカル環境
 
-* Ubuntu
+* Ubuntu Desktop 20.04
 
 * Docker Compose
 
@@ -50,35 +43,51 @@ EC2 https://stock-app.net/
 
 * Docker Hub -> AWS ECS
 
-## 機能
+  - [deploy-ecs.rb](https://github.com/keisukeh1016/stock_app/blob/master/deploy-ecs.rb)
 
-* アカウント作成／削除
+# 機能
 
-* メール認証 ( SendGrid )
+* アカウント作成／削除／有効化
+
+  - SendGrid
 
 * ログイン／ログアウト
 
-* スクレイピングで株価取得
+  - bcrypt
 
-* 銘柄一覧表示／検索（ TOPIX100 ）
+* ユーザランキング表示／ページネーション
 
-* 仮想的な株式売買
+  - faker
+  - kaminari
 
-* ユーザーのランキング表示
+* 銘柄一覧表示／検索
 
-* 独自ドメイン ( Route53 )
+  - roo
+  - ransack
 
-* SSL/TLS ( Let's Encrypt )
+* 平日16時に株価更新
 
-## コードの場所
-
-* 株価更新
+  - nokogiri
   - [lib/tasks/stock.rake](https://github.com/keisukeh1016/stock_app/blob/master/lib/tasks/stock.rake)
 
-* デプロイ
-  - [deploy-ecs.rb](https://github.com/keisukeh1016/stock_app/blob/master/deploy-ecs.rb)
+* 銘柄に関するツイート表示
 
-## 他のデプロイ場所
+  - Twitter Search API
+
+* 株式売買
+
+* 独自ドメイン／SSL／TLS
+
+  - Route53
+  - Let's Encrypt
+
+* テスト
+
+  - RSpec
+  - Capybara
+  - FactoryBot
+
+# 他のデプロイ場所
 
 * Heroku 
   - https://stock-ja.herokuapp.com/
