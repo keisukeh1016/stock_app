@@ -4,6 +4,7 @@ class Stock < ApplicationRecord
   has_many :portfolios, foreign_key: "stock_code",
                         dependent: :destroy
   has_many :users, through: :portfolios
+  has_many :alerts, dependent: :destroy
 
   validates :code, presence: true,
                    uniqueness: true,
