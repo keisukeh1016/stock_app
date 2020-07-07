@@ -10,10 +10,6 @@ class Stock < ApplicationRecord
                    uniqueness: true,
                    length: { is: 4 }
                    
-  def code_and_name 
-    "#{code} #{name[0..10]}"
-  end
-
   def day_change
     (today_price - yesterday_price) / yesterday_price * 100 
   end

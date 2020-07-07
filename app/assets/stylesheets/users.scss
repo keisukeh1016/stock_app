@@ -35,16 +35,31 @@ table.user_index {
 }
 
 // show
-table.user_show {
+div.user_header {
+  font-size: 3rem;
+  margin: 3rem auto;
+  text-align: center;
+  width: 500px;
+  .user_name {
+    margin-bottom: 2rem;
+  }
+  .user_status {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 24rem;
+  }
+}
+
+.user_container {
+  display: flex;
+}
+
+
+// user_portfolio
+table.user_portfolio {
   caption {
-    .user_name {
-      margin-bottom: 2rem;
-    }
-    .user_status {
-      display: flex;
-      justify-content: space-between;
-      width: 24rem;
-    }
+    font-size: 2rem;
   }
   td {
     height: 6rem;
@@ -68,6 +83,7 @@ table.user_show {
   }
   td.asset_name {
     font-size: 1.4rem;
+    padding-top: 2.4rem;
   }
   td.asset_holding {
     width: 7.6rem;
@@ -102,6 +118,75 @@ table.user_show {
   }
 }
 
+// user_alert
+section.user_alert {
+  margin: 0 auto;
+  width: 500px;
+  h1 {
+    font-size: 2rem;
+    font-weight: normal;
+    text-align: center;
+  }
+  .alert_form {
+    display: flex;
+    justify-content: space-around;
+    margin: 4rem auto;
+    #alert_stock_code {
+      height: 4.2rem;
+      width: 5rem;
+    }
+    #alert_price {
+      font-size: 1.8rem;
+      height: 3.6rem;
+      width: 8rem;
+    }
+    .yen {
+      line-height: 4.2rem;
+    }
+    #alert_comparison {
+      font-size: 1.4rem;
+      height: 4.2rem;
+      width: 5rem;
+    }
+  }
+  .alert_list {
+    margin-top: 2rem;
+    .main_row {
+      &.true {
+        background: palegreen;
+      }
+    }
+    .delete_button {
+      background: red;
+      border: 0.1rem solid;
+      border-radius: 0.8rem;
+      color: white;
+      display: inline-block;
+      font-size: 1.4rem;
+      height: 3.4rem;
+      line-height: 3.4rem;
+      opacity: 0.7;
+      width: 4.2rem;
+    }
+  }
+}
+
+@media (max-width: 1050px) {
+  .user_container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  div.user_header {
+    width: 100%;
+  }
+  section.user_alert {
+    width: 100%;
+  }
+}
+
+// destroy
 #destroy_container {
   margin: 4rem auto 4rem;
   user-select: none;

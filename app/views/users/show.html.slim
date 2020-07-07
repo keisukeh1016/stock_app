@@ -1,80 +1,79 @@
 - @page_title = @user.name
 
-table.user_show
-  caption
-    .user_name= @user.name
-    .user_status
-      span= "#{@user_rank}位"
-      span= "#{@user.total_assets.to_i} 円"  
-  thead
-    tr
-      th 
-      th 銘柄
-      th 
-      th 評価額
-  tbody
-    tr.main_row
-      td
-      td.asset_name 現金
-      td
-      td.asset_subtotal.user_cash= "#{@user.wallet.cash.to_i} 円"
+.user_header
+  .user_name= @user.name
+  .user_status
+    span= "#{@user_rank}位"
+    span= "#{@user.total_assets.to_i} 円"  
 
-    - @user.portfolios.sort_by{|portfolio| portfolio.stock.code}.each do |portfolio|
+div.user_container
+
+  table.user_portfolio
+    caption ポートフォリオ
+    thead
+      tr
+        th 
+        th 銘柄
+        th 
+        th 評価額
+    tbody
       tr.main_row
-        td.stock_code
-          = portfolio.stock.code
-          - if @user == current_user
-            span.button.open_button.open +
-            span.button.close_button -
+        td
+        td.asset_name 現金
+        td
+        td.asset_subtotal.user_cash= "#{@user.wallet.cash.to_i} 円"
 
-        td.asset_name
-          = link_to portfolio.stock.name, portfolio.stock
-          p= "#{portfolio.stock.today_price} 円"
+      - @user.portfolios.sort_by{|portfolio| portfolio.stock.code}.each do |portfolio|
+        tr.main_row
+          td.stock_code
+            = portfolio.stock.code
+            - if @user == current_user
+              span.button.open_button.open +
+              span.button.close_button -
 
-        td.asset_holding
-          .portfolio_holding.open= "#{portfolio.holding} 株"
-          - if @user == current_user
-            = form_with scope: :portfolio, url: portfolio, method: :patch, local: true, class: "portfolio_update" do |f|
-              = f.hidden_field :stock_code, value: portfolio.stock.code
-              = f.number_field :holding, class: "holding_field", value: portfolio.holding
-              = f.submit "更新", class: ["button", "update_button"]
+          td.asset_name
+            = link_to portfolio.stock.name, portfolio.stock
+            p= "#{portfolio.stock.today_price} 円"
 
-        td.asset_subtotal
-          - if (portfolio.stock.today_price - portfolio.stock.yesterday_price) >= 0
-            span.plus_price= "#{(portfolio.total_value).to_i} 円"
-          - else
-            span.minus_price= "#{(portfolio.total_value).to_i} 円"
+          td.asset_holding
+            .portfolio_holding.open= "#{portfolio.holding} 株"
+            - if @user == current_user
+              = form_with scope: :portfolio, url: portfolio, method: :patch, local: true, class: "portfolio_update" do |f|
+                = f.hidden_field :stock_code, value: portfolio.stock.code
+                = f.number_field :holding, class: "holding_field", value: portfolio.holding
+                = f.submit "更新", class: ["button", "update_button"]
 
-          - if @user ==current_user
-            = form_with scope: :portfolio, url: portfolio, method: :delete, local: true, class: "portfolio_delete" do |f|
-              = f.hidden_field :stock_code, value: portfolio.stock.code
-              = f.hidden_field :holding, value: 0
-              = f.submit "全売却", class: ["button", "delete_button"]
+          td.asset_subtotal
+            - if (portfolio.stock.today_price - portfolio.stock.yesterday_price) >= 0
+              span.plus_price= "#{(portfolio.total_value).to_i} 円"
+            - else
+              span.minus_price= "#{(portfolio.total_value).to_i} 円"
 
-- if @user == current_user
-  section.user_alert
-    = form_with scope: :alert, url: alerts_path, local: true do |f|
-      = f.collection_select :stock_code, @user.stocks.order(:code), :code, :code_and_name
-      = f.number_field :price, min: 0, step: 0.1
-      = f.collection_select :comparison, ["以上", "以下"], :to_s, :to_s
-      = f.submit "作成", class: ["button", "add_button"]
+            - if @user ==current_user
+              = form_with scope: :portfolio, url: portfolio, method: :delete, local: true, class: "portfolio_delete" do |f|
+                = f.hidden_field :stock_code, value: portfolio.stock.code
+                = f.hidden_field :holding, value: 0
+                = f.submit "全売却", class: ["button", "delete_button"]
 
-    table.alert_list
-      thead
-        tr
-          th 
-          th
-          th
-          th
-          th
-      tbody
-        - @user.alerts.each do |alert|
-          tr
-            td= link_to "削除", alert_path(alert), method: :delete, class: ["button", "delete_button"]
-            td= alert.stock_code
-            td= "#{alert.price} 円"
-            td= alert.comparison
-            td= alert.completed
+  - if @user == current_user
+    section.user_alert
+      h1 アラート
+      = form_with scope: :alert, url: alerts_path, local: true, class: "alert_form" do |f|
+        = f.collection_select :stock_code, @user.stocks.order(:code), :code, :code, id: "alert_stock_code"
+        = f.number_field :price, min: 0, step: 0.1, class: "alert_price"
+        .yen= "円"
+        = f.collection_select :comparison, ["以上", "以下"], :to_s, :to_s, class: "alert_comparison"
+        = f.submit "作成", class: ["button", "add_button"]
+
+      table.alert_list
+        tbody
+          - @user.alerts.each do |alert|
+            tr class="main_row #{alert.completed}"
+              td= link_to "削除", alert_path(alert), method: :delete, class: ["button", "delete_button"]
+              td= alert.stock_code
+              td= "#{alert.price} 円"
+              td= alert.comparison
+              td= ( alert.completed ? "完了" : "未完了" ) 
 
 - if @user == current_user
   #destroy_container
