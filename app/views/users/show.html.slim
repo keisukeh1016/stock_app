@@ -51,22 +51,30 @@ table.user_show
               = f.hidden_field :holding, value: 0
               = f.submit "全売却", class: ["button", "delete_button"]
 
-section.user_alert
-  - if @user ==current_user
+- if @user == current_user
+  section.user_alert
     = form_with scope: :alert, url: alerts_path, local: true do |f|
       = f.collection_select :stock_code, @user.stocks.order(:code), :code, :code_and_name
       = f.number_field :price, min: 0, step: 0.1
       = f.collection_select :comparison, ["以上", "以下"], :to_s, :to_s
-      = f.submit "作成"
+      = f.submit "作成", class: ["button", "add_button"]
 
-  ul.alert_list
-    - @user.alerts.each do |alert|
-      li
-        = alert.stock_code 
-        = alert.price
-        = alert.comparison
-        = alert.completed.to_s
-
+    table.alert_list
+      thead
+        tr
+          th 
+          th
+          th
+          th
+          th
+      tbody
+        - @user.alerts.each do |alert|
+          tr
+            td= link_to "削除", alert_path(alert), method: :delete, class: ["button", "delete_button"]
+            td= alert.stock_code
+            td= "#{alert.price} 円"
+            td= alert.comparison
+            td= alert.completed
 
 - if @user == current_user
   #destroy_container

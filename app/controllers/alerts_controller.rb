@@ -7,11 +7,11 @@ class AlertsController < ApplicationController
     case @alert.comparison
     when "以上"
       if @alert.stock.today_price >= @alert.price
-        redirect_to user_url(current_user), notice: "既に条件を満たしています。" and return
+        redirect_to user_url(current_user), notice: "既に条件を満たしています" and return
       end
     when "以下"
       if @alert.price >= @alert.stock.today_price
-        redirect_to user_url(current_user), notice: "既に条件を満たしています。" and return
+        redirect_to user_url(current_user), notice: "既に条件を満たしています" and return
       end
     end
 
@@ -19,12 +19,10 @@ class AlertsController < ApplicationController
     redirect_to user_url(current_user), notice: "アラートを作成しました"
   end
 
-  def update
-
-  end
-
   def destroy
-
+    @alert = current_user.alerts.find(params[:id])
+    @alert.destroy!
+    redirect_to user_url(current_user), notice: "アラートを削除しました"
   end
 
   private
