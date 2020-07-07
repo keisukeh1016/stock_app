@@ -27,7 +27,9 @@ table.user_show
             span.button.open_button.open +
             span.button.close_button -
 
-        td.asset_name= link_to portfolio.stock.name, portfolio.stock
+        td.asset_name
+          = link_to portfolio.stock.name, portfolio.stock
+          p= "#{portfolio.stock.today_price} 円"
 
         td.asset_holding
           .portfolio_holding.open= "#{portfolio.holding} 株"
@@ -48,6 +50,23 @@ table.user_show
               = f.hidden_field :stock_code, value: portfolio.stock.code
               = f.hidden_field :holding, value: 0
               = f.submit "全売却", class: ["button", "delete_button"]
+
+section.user_alert
+  - if @user ==current_user
+    = form_with scope: :alert, url: alerts_path, local: true do |f|
+      = f.collection_select :stock_code, @user.stocks.order(:code), :code, :code_and_name
+      = f.number_field :price, min: 0, step: 0.1
+      = f.collection_select :comparison, ["以上", "以下"], :to_s, :to_s
+      = f.submit "作成"
+
+  ul.alert_list
+    - @user.alerts.each do |alert|
+      li
+        = alert.stock_code 
+        = alert.price
+        = alert.comparison
+        = alert.completed.to_s
+
 
 - if @user == current_user
   #destroy_container

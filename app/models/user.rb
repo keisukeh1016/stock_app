@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one :wallet, dependent: :destroy
   has_many :portfolios, dependent: :destroy
   has_many :stocks, through: :portfolios
+  has_many :alerts, dependent: :destroy
 
   validates :name, presence: true,
                    uniqueness: true,
