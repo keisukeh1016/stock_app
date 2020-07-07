@@ -12,6 +12,7 @@ namespace :stock do
   task price: :environment do
     break if jpx_holiday?
     update_stocks_price
+    check_alerts
   end 
 
   desc "株価を更新する（手動）"
@@ -72,5 +73,20 @@ def shuffle_users_portfolios
     end while bool_arr.include?(true)
   
     code_arr.shuffle!
+  end
+end
+
+def check_alerts
+  Alert.where(completed: false).all.each do |alert|
+    case alert.comparison
+    when "以上"
+      if alert.stock.today_price >= alert.price
+        alert.update!(completed: true)
+      end
+    when "以下"
+      if alert.price >= alert.stock.today_price
+        alert.update!(completed: true)
+      end
+    end
   end
 end
