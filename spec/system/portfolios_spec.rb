@@ -38,20 +38,6 @@ RSpec.describe 'ポートフォリオ' do
         end
       end
 
-      context '負の整数を入力' do
-        before do
-          visit stock_path(stock5)
-          find('.holding_field').fill_in with: '-1'
-          click_button '購入'
-        end
-        it '購入に失敗' do
-          expect(page).to have_text "正の整数を入力してください"
-        end
-        it '現金に変化なし' do
-          expect( find('.user_cash') ).to have_text( before_cash.to_i.to_s ) 
-        end
-      end
-
       context '６件目の銘柄登録' do
         before do
           visit stock_path(stock5)
@@ -105,9 +91,13 @@ RSpec.describe 'ポートフォリオ' do
           find('tr:nth-child(2) .open_button').click
           find('.holding_field').fill_in with: '2'
           click_button '更新'
+          find('tr:nth-child(2) .close_button').click
         end
-        it '購入に成功' do
-          expect(page).to have_text "売買が完了しました"
+        it '保有数が変化' do
+          expect( find('tr:nth-child(2) .portfolio_holding') ).to have_text "2 株"
+        end
+        it '評価額が変化' do
+          expect( find('tr:nth-child(2) .asset_subtotal>span') ).to have_text "20000 円"
         end
         it '現金が減少' do
           expect( find('.user_cash') ).to have_text( ( before_cash - (stock1.today_price * 1) ).to_i.to_s ) 
@@ -134,9 +124,6 @@ RSpec.describe 'ポートフォリオ' do
           visit user_path(user)
           find('tr:nth-child(2) .open_button').click
           click_button '全売却'
-        end
-        it '削除に成功' do
-          expect(page).to have_text "銘柄を売却しました"
         end
         it '現金が増加' do
           expect( find('.user_cash') ).to have_text( ( before_cash + (stock1.today_price * 1) ).to_i.to_s ) 
