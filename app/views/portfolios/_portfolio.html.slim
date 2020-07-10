@@ -1,0 +1,30 @@
+tr id="portfolio-#{portfolio.id}" class="main_row"
+  td.stock_code
+    = portfolio.stock.code
+    - if @user == current_user
+      span.button.open_button.open +
+      span.button.close_button -
+
+  td.asset_name
+    = link_to portfolio.stock.name, portfolio.stock
+    p= "#{portfolio.stock.today_price} 円"
+
+  td.asset_holding
+    .portfolio_holding.open= "#{portfolio.holding} 株"
+    - if @user == current_user
+      = form_with scope: :portfolio, url: portfolio, method: :patch, class: "portfolio_update" do |f|
+        = f.hidden_field :stock_code, value: portfolio.stock.code
+        = f.number_field :holding, class: "holding_field", value: portfolio.holding, min: 1
+        = f.submit "更新", class: ["button", "update_button"]
+
+  td.asset_subtotal
+    - if (portfolio.stock.today_price - portfolio.stock.yesterday_price) >= 0
+      span.plus_price= "#{(portfolio.total_value).to_i} 円"
+    - else
+      span.minus_price= "#{(portfolio.total_value).to_i} 円"
+
+    - if @user ==current_user
+      = form_with scope: :portfolio, url: portfolio, method: :delete, class: "portfolio_delete" do |f|
+        = f.hidden_field :stock_code, value: portfolio.stock.code
+        = f.hidden_field :holding, value: 0
+        = f.submit "全売却", class: ["button", "delete_button"]
