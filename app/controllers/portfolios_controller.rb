@@ -14,7 +14,10 @@ class PortfoliosController < ApplicationController
     return unless portfolio_valid?
 
     @portfolio.update!(portfolio_params)
-    redirect_to user_url(current_user), notice: "売買が完了しました"
+
+    if Rails.application.routes.recognize_path(request.referer)[:controller] == "stocks"
+      redirect_to user_url(current_user), notice: "売買が完了しました"
+    end
   end
 
   def destroy
@@ -22,7 +25,10 @@ class PortfoliosController < ApplicationController
     return unless portfolio_valid?
     
     @portfolio.destroy!
-    redirect_to user_url(current_user), notice: "銘柄を売却しました"
+
+    if Rails.application.routes.recognize_path(request.referer)[:controller] == "stocks"
+      redirect_to user_url(current_user), notice: "銘柄を売却しました"
+    end
   end
 
   private
@@ -36,7 +42,6 @@ class PortfoliosController < ApplicationController
     end
 
     def portfolio_valid?
-      redirect_to user_url(current_user), alert: "正の整数を入力してください" and return if @portfolio.holding < 0
       redirect_to user_url(current_user), alert: "現金が不足しています" and return unless @portfolio.user_has_enough_money?
       redirect_to user_url(current_user), alert: "銘柄登録の上限は５件です" and return if @portfolio.excess_count_limit?
       true

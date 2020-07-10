@@ -1,0 +1,12 @@
+function portfolioUpdate() {
+  let userCash = document.querySelector(".user_cash");
+  userCash.textContent = '<%= @portfolio.user.wallet.cash.to_i %> 円';
+
+  let portfolioHolding = document.querySelector("#portfolio-<%= @portfolio.id %> .portfolio_holding");
+  portfolioHolding.textContent = '<%= @portfolio.holding %> 株';
+
+  let portfolioSubtotal = document.querySelector('#portfolio-<%= @portfolio.id %>>.asset_subtotal>span');
+  portfolioSubtotal.textContent = '<%= (@portfolio.total_value).to_i %> 円'
+}
+
+portfolioUpdate();

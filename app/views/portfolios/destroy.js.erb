@@ -1,0 +1,9 @@
+function portfolioDestroy() {
+  let userCash = document.querySelector(".user_cash");
+  userCash.textContent = '<%= @portfolio.user.wallet.cash.to_i %> 円';
+
+  let portfolio = document.querySelector("#portfolio-<%= @portfolio.id %>");
+  portfolio.style.display = 'none';
+}
+
+portfolioDestroy();
