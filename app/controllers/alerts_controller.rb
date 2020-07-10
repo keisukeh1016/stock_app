@@ -16,7 +16,6 @@ class AlertsController < ApplicationController
     end
 
     @alert.save!
-    redirect_to user_url(current_user), notice: "アラートを作成しました"
   end
 
   def destroy

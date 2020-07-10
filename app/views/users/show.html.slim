@@ -58,7 +58,7 @@ div.user_container
   - if @user == current_user
     section.user_alert
       h1 アラート
-      = form_with scope: :alert, url: alerts_path, local: true, class: "alert_form" do |f|
+      = form_with scope: :alert, url: alerts_path, class: "alert_form" do |f|
         = f.collection_select :stock_code, @user.stocks.order(:code), :code, :code, id: "alert_stock_code"
         = f.number_field :price, min: 0, step: 0.1, class: "alert_price"
         .yen= "円"
@@ -68,13 +68,7 @@ div.user_container
       table.alert_list
         tbody
           - @user.alerts.each do |alert|
-            tr id="alert-#{alert.id}" class="main_row #{alert.completed}"
-              td= link_to "削除", alert_path(alert), method: :delete, remote: true, class: ["button", "delete_button"]
-              td= alert.stock_code
-              td= "#{alert.price} 円"
-              td= alert.comparison
-              td= ( alert.completed ? "完了" : "未完了" ) 
-              td= alert.updated_at.strftime("%m/%d")
+            = render "layouts/alert", alert: alert
 
 - if @user == current_user
   #destroy_container

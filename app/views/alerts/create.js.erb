@@ -1,0 +1,6 @@
+function createAlert() {
+  let alert_list = document.querySelector(".alert_list>tbody");
+  alert_list.innerHTML += '<%= render "layouts/alert", alert: @alert %>';
+}
+
+createAlert();
