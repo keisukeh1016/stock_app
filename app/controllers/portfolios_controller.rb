@@ -14,6 +14,10 @@ class PortfoliosController < ApplicationController
     return unless portfolio_valid?
 
     @portfolio.update!(portfolio_params)
+
+    if Rails.application.routes.recognize_path(request.referer)[:controller] == "stocks"
+      redirect_to user_url(current_user), notice: "売買が完了しました"
+    end
   end
 
   def destroy
@@ -21,6 +25,10 @@ class PortfoliosController < ApplicationController
     return unless portfolio_valid?
     
     @portfolio.destroy!
+
+    if Rails.application.routes.recognize_path(request.referer)[:controller] == "stocks"
+      redirect_to user_url(current_user), notice: "銘柄を売却しました"
+    end
   end
 
   private
