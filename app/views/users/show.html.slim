@@ -74,6 +74,7 @@ div.user_container
               td= "#{alert.price} 円"
               td= alert.comparison
               td= ( alert.completed ? "完了" : "未完了" ) 
+              td= alert.updated_at.strftime("%m/%d")
 
 - if @user == current_user
   #destroy_container

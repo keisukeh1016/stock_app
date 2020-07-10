@@ -153,8 +153,11 @@ section.user_alert {
     margin-top: 2rem;
     .main_row {
       &.true {
-        background: palegreen;
+        background: silver;
       }
+    }
+    td {
+      padding: 1.6rem 0.2rem;
     }
     .delete_button {
       background: red;
