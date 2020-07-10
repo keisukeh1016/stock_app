@@ -68,8 +68,8 @@ div.user_container
       table.alert_list
         tbody
           - @user.alerts.each do |alert|
-            tr class="main_row #{alert.completed}"
-              td= link_to "削除", alert_path(alert), method: :delete, class: ["button", "delete_button"]
+            tr id="alert-#{alert.id}" class="main_row #{alert.completed}"
+              td= link_to "削除", alert_path(alert), method: :delete, remote: true, class: ["button", "delete_button"]
               td= alert.stock_code
               td= "#{alert.price} 円"
               td= alert.comparison

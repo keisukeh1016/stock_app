@@ -22,7 +22,6 @@ class AlertsController < ApplicationController
   def destroy
     @alert = current_user.alerts.find(params[:id])
     @alert.destroy!
-    redirect_to user_url(current_user), notice: "アラートを削除しました"
   end
 
   private
