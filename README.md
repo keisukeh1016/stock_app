@@ -24,10 +24,7 @@ EC2 https://stock-app.net/
 
 #### 本番環境
 
-* AWS ECS
-
-  - Nginx
-  - Puma
+* AWS EC2
 
 * AWS RDS
 
@@ -35,19 +32,7 @@ EC2 https://stock-app.net/
 
 #### ローカル環境
 
-* Ubuntu Desktop 20.04
-
-* Docker Compose
-
-#### デプロイ
-
-* [deploy-ecs.rb](https://github.com/keisukeh1016/stock_app/blob/master/deploy-ecs.rb)
-
-1. DockerfileからimageをBuild
-
-2. Docker HubにPush
-
-3. AWS ECS タスクを停止＆実行
+* Ubuntu 20.04
 
 # 機能
 
