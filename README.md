@@ -1,82 +1,51 @@
-EC2 https://stock-app.net/
+# 株式売買の体験ができます
 
-#### テストユーザーでログインできます
-
+- https://stock-app.net/
+- テストユーザーでログインできます
 ![トップページ](./app/assets/images/toppage.png)
 
-# 概要
+## 使い方
 
-1. 株式売買の体験ができます
+1. ログインすると、マイページに遷移します
+![マイページ](./app/assets/images/lesson1.png)
 
-2. 他のユーザーと競争しましょう
+2. ポートフォリオの欄に現在保有中の銘柄一覧が表示されています
 
-3. 株価は平日１６時頃更新されます。
+3. 青色の＋ボタンを押すと、銘柄の売買画面が表示されます
+![銘柄売買](./app/assets/images/lesson2.png)
+
+4. 他の銘柄の検索もできます
+![銘柄一覧](./app/assets/images/lesson3.png)
+
+5. 銘柄ページから新規購入できます
+![銘柄詳細](./app/assets/images/lesson4.png)
 
 # 環境
 
-* Ruby 2.7.1
+#### 言語
 
-* Rails 6.0.3
+- Ruby on Rails 6.0.3
 
-* Slim
+#### テスト
 
-* RSpec
+- RSpec
 
 #### 本番環境
 
-* AWS EC2
+- AWS EC2
 
-* AWS RDS
+- AWS RDS (PostgreSQL)
 
-  - PostgreSQL
+# 利用サービス
 
-#### ローカル環境
+#### メール配信
 
-* Ubuntu 20.04
+- SendGrid
 
-# 機能
+#### ツイート表示
 
-* アカウント作成／削除／有効化
+- Twitter Search API
 
-  - SendGrid
+#### SSL証明書
 
-* ログイン／ログアウト
-
-  - bcrypt
-
-* ユーザランキング表示／ページネーション
-
-  - faker
-  - kaminari
-
-* 銘柄一覧表示／検索
-
-  - roo
-  - ransack
-
-* 平日16時に株価更新
-
-  - nokogiri
-  - [lib/tasks/stock.rake](https://github.com/keisukeh1016/stock_app/blob/master/lib/tasks/stock.rake)
-
-* 銘柄に関するツイート表示
-
-  - Twitter Search API
-
-* 株式売買
-
-* 独自ドメイン／SSL／TLS
-
-  - Route53
-  - Let's Encrypt
-
-* テスト
-
-  - RSpec
-  - Capybara
-  - FactoryBot
-
-# 他のデプロイ場所
-
-* Heroku 
-  - https://stock-ja.herokuapp.com/
+- Let's Encrypt
