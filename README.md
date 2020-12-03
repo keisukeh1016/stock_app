@@ -1,6 +1,6 @@
 # 株式売買の体験ができます
 
-- https://stock-app.net/
+- https://stock-ja.herokuapp.com/
 - テストユーザーでログインできます
 ![トップページ](./app/assets/images/toppage.png)
 
@@ -32,9 +32,7 @@
 
 #### 本番環境
 
-- AWS EC2
-
-- AWS RDS (PostgreSQL)
+- Heroku
 
 # 利用サービス
 
@@ -45,7 +43,3 @@
 #### ツイート表示
 
 - Twitter Search API
-
-#### SSL証明書
-
-- Let's Encrypt
